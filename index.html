@@ -1,555 +1,778 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="HyperNeRF handles topological variations by modeling a family of shapes in a higher-dimensional space, thereby producing more realistic renderings and more accurate geometric reconstructions.">
-  <meta name="keywords" content="HyperNeRF, Nerfies, D-NeRF, NeRF">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta property="og:image" content="./static/images/thumbnail.png"/>
-  <link rel="image_src" href="./static/images/thumbnail.png">
-  <link rel="icon"
-        type="image/x-icon"
-        href="./static/images/favicon.ico"/>
-
-  <title>HyperNeRF: A Higher-Dimensional Representation for Topologically Varying Neural Radiance
-    Fields</title>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDF010G6PN"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EDF010G6PN');
-
-
-  </script>
-
-  <script type="module"
-          src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" type="text/css" href="./static/slick/slick.css"/>
-  <link rel="stylesheet" type="text/css" href="./static/slick/slick-theme.css"/>
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
-</head>
-<body>
-
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
+  <head>
+    <link rel="stylesheet" href="./static/css/bulma.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+    <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="./static/css/index.css">
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+    integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI="
+    crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+      integrity="sha256-4hqlsNP9KM6+2eA8VUT0kk4RsMRTeS7QGHIM+MZ5sLY="
+      crossorigin="anonymous"
+    />
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+    <script src="./static/js/jquery-3.2.1.min.js"></script>
+    <script src="./static/js/jquery.event.move.js"></script>
+    <script src="./static/js/jquery.twentytwenty.js"></script>
+    <script src="./static/js/bulma-carousel.min.js"></script>
+    <script src="./static/js/bulma-slider.min.js"></script>
+  </head>
+  
+  <body>
+    <div class="container-header">
+      <header> 
+        <img src="./static/figures/Logo-MILL.png" alt="logo" style="width: 200px; height: 200px;">
+        <h1>MILL: Multi-Illumination Low-Light Dataset</h1>
+      </header>
     </div>
 
-  </div>
-</nav>
-
-
-<section class="hero">
-  <div class="hero-body">
-    <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-4 has-text-centered">
-          <img src="static/images/logo.svg" alt="HyperNeRF"/>
-        </div>
-      </div>
-      <div class="container has-text-centered">
-        <h1 class="title is-1 publication-title">
-          A Higher-Dimensional Representation<br/>for Topologically Varying Neural Radiance Fields
-        </h1>
-        <div class="is-size-5 publication-authors">
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/keunhong_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/keunhong_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="https://keunhong.com">Keunhong Park</a><sup>1,2</sup></div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/utsinh_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/utsinh_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup></div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/hedman_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/hedman_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="https://phogzone.com/">Peter Hedman</a><sup>2</sup></div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/barron_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/barron_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>
-          </div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/sofien_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/sofien_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>
-          </div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/dgo_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/dgo_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>
-          </div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/rmbrualla_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/rmbrualla_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
-          </div>
-          <div class="author-block">
-            <div class="author-portrait">
-              <img src="./static/images/portraits/smseitz_rgb.128.gif" class="rgb preload" />
-              <img src="./static/images/portraits/smseitz_depth.128.gif" class="depth preload" />
-            </div>
-            <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>
-          </div>
-        </div>
-
-        <div class="is-size-5 publication-authors">
-          <span class="author-block"><sup>1</sup>University of Washington,</span>
-          <span class="author-block"><sup>2</sup>Google Research</span>
-        </div>
-
-        <div class="column has-text-centered">
-          <div class="publication-links">
-            <!-- PDF Link. -->
-            <span class="link-block">
-                <a href="https://arxiv.org/pdf/2106.13228.pdf"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-            <span class="link-block">
-                <a href="https://arxiv.org/abs/2106.13228"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-            </span>
-            <span class="link-block">
-              <a href="https://github.com/google/hypernerf"
-                 class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                    <i class="fab fa-github"></i>
-                </span>
-                <span>Code</span>
-                </a>
-            </span>
-            <!-- Dataset Link. -->
-            <span class="link-block">
-              <a href="https://github.com/google/hypernerf/releases/tag/v0.1"
-                 class="external-link button is-normal is-rounded is-dark">
-                <span class="icon">
-                    <i class="far fa-images"></i>
-                </span>
-                <span>Data</span>
-                </a>
-              </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="hero teaser">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <video id="teaser" autoplay controls muted loop playsinline height="100%">
-        <source src="./static/images/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <i>HyperNeRF</i> handles topological variations by modeling a
-        family of shapes in a higher-dimensional space, thereby producing more realistic renderings
-        and more accurate geometric reconstructions.
-      </h2>
-    </div>
-  </div>
-</section>
-
-
-<section class="hero is-dark is-small">
-  <div class="hero-body">
+    <h2></h2>
+    
     <div class="container has-text-centered">
-      <div id="results-carousel" class="carousel results-carousel">
-
-        <div>
-          <div class="results-item">
-            <video poster="" id="espresso-rgb" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/espresso_rgb.mp4"
-                      type="video/mp4">
-            </video>
-            <video poster="" id="espresso-depth" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/espresso_depth.mp4"
-                      type="video/mp4">
-            </video>
+      <h2 class="title is-1 publication-title">
+        From: Revisiting Robust Low Light Enhancement
+      </h2>
+      <div class="is-size-5 publication-authors">
+        <div class="author-block">
+          <div class="author-portrait">
           </div>
+          <a href="https://scholar.google.com/citations?user=qzpgC1cAAAAJ&hl=en">Maria Pilligua</a><sup>1</sup>
         </div>
-
-        <div>
-          <div class="results-item">
-            <video poster="" id="split-cookie-rgb" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/split-cookie_rgb.mp4"
-                      type="video/mp4">
-            </video>
-            <video poster="" id="split-cookie-depth" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/split-cookie_depth.mp4"
-                      type="video/mp4">
-            </video>
+        <div class="author-block">
+          <div class="author-portrait">
           </div>
+          <a href="https://scholar.google.com/citations?user=LjE0U1IAAAAJ&hl=es"> Ramon Baldrich</a><sup>1,2</sup>
         </div>
-
-        <div>
-          <div class="results-item">
-            <video poster="" id="3dprinter-rgb" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/3dprinter_rgb.mp4"
-                      type="video/mp4">
-            </video>
-            <video poster="" id="3dprinter-depth" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/3dprinter_depth.mp4"
-                      type="video/mp4">
-            </video>
+        <div class="author-block">
+          <div class="author-portrait">
           </div>
+          <a>Pai Peng</a>
         </div>
-
-        <div>
-          <div class="results-item">
-            <video poster="" id="ricardo-rgb" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/ricardo_rgb.mp4"
-                      type="video/mp4">
-            </video>
-            <video poster="" id="ricardo-depth" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/ricardo_depth.mp4"
-                      type="video/mp4">
-            </video>
+        <div class="author-block">
+          <div class="author-portrait">
           </div>
+          <a href="https://www.eecs.yorku.ca/~mbrown/">Michael S. Brown</a><sup>3</sup>
         </div>
-
-        <div>
-          <div class="results-item">
-            <video poster="" id="americano-rgb" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/americano_rgb.mp4"
-                      type="video/mp4">
-            </video>
-            <video poster="" id="americano-depth" autoplay controls muted loop playsinline height="100%">
-              <source src="./static/videos/americano_depth.mp4"
-                      type="video/mp4">
-            </video>
+        <div class="author-block">
+          <div class="author-portrait">
           </div>
+          <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a><sup>1,2</sup>
         </div>
-
       </div>
 
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-three-quarters">
-          <p>
-            Here we show results generated with <i>HyperNeRF</i>. These videos show the input video
-            being
-            played
-            back with a stabilized novel camera path. The right side video shows the depth of the
-            scene.
-            Click on the arrows or drag to see more results.
-          </p>
-        </div>
+      <div class="is-size-5 publication-authors">
+        <span class="author-block"><sup>1</sup>Computer Vision Center,</span>
+        <span class="author-block"><sup>2</sup>Autonomous University of Barcelona,</span>
+        <span class="author-block"><sup>3</sup>York University,</span>
       </div>
-    </div>
-  </div>
-</section>
 
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <!-- Abstract. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            Neural Radiance Fields (NeRF) are able to reconstruct scenes with unprecedented
-            fidelity,
-            and various recent works have extended NeRF to handle dynamic scenes. A common approach
-            to reconstruct such non-rigid scenes is through the use of a learned deformation field
-            mapping from coordinates in each input image into a canonical template coordinate space.
-            However, these deformation-based approaches struggle to model changes in topology, as
-            topological changes require a discontinuity in the deformation field, but these
-            deformation fields are necessarily continuous.
-          </p>
-          <p>
-            We address this limitation by lifting
-            NeRFs into a higher dimensional space, and by representing the 5D radiance field
-            corresponding to each individual input image as a slice through this "hyper-space". Our
-            method is inspired by level set methods, which model the evolution of surfaces as slices
-            through a higher dimensional surface. We evaluate our method on two tasks: (i)
-            interpolating smoothly between "moments", i.e., configurations of the scene, seen in the
-            input images while maintaining visual plausibility, and (ii) novel-view synthesis at
-            fixed moments. We show that our method, which we dub HyperNeRF, outperforms existing
-            methods on both tasks. Compared to Nerfies, <i>HyperNeRF</i> reduces average error rates by
-            4.1% for interpolation and 8.6% for novel-view synthesis, as measured by LPIPS.
-          </p>
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-2">Video</h2>
-        <div class="publication-video">
-          <iframe width="640" height="480" src="https://www.youtube.com/embed/qzgdE_ghkaI"
-                  title="YouTube video player" frameborder="0"
-                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
-  </div>
-</section>
-
-<hr/>
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <h2 class="title is-3">Motivation</h2>
-    <div class="columns is-centered">
-      <!-- Level Sets. -->
-      <div class="column is-half">
-        <div class="content">
-          <h3 class="title is-4">Level-Set Methods</h3>
-          <div class="level-set has-text-justified">
-            <p>
-              HyperNeRF represents changes in scene topology by providing a
-              NeRF with a higher-dimensional input. This is inspired by level-set methods.
-              Level-set methods provide a means to model a family of topologically-varying shapes as
-              slices of a higher dimensional auxiliary function. For example, these shapes
-            </p>
-            <div class="level-set-shapes">
-              <img src="./static/figures/level_set/0.svg"/>
-              <img src="./static/figures/level_set/1.svg"/>
-              <img src="./static/figures/level_set/2.svg"/>
+    <br style="line-height: 50px;">
+    
+    <content> 
+      <div style="border-radius: 25px; background-color: rgb(165, 138, 138); padding: 30px;">
+        <h2 class="title is-3" style="color:rgb(37, 26, 26)">Test Set</h2>
+        <div class="sliderc">
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test13.png"/>
+              </div>
             </div>
-            <p>
-              can be represented as slices through this auxiliary shape
-            </p>
-            <model-viewer class="level-set-slices"
-                          src="./static/figures/level_set/level_set_3d.glb"
-                          alt="Slices through a 3D ambient surface."
-                          environment-image="neutral" auto-rotate camera-controls></model-viewer>
-            <p>
-              We can naturally model topologically varying shapes by just moving the
-              slicing plane along the higher dimensions. For example, this animation was generated
-              by
-              moving the slicing plane from top to bottom:
-            </p>
-            <div class="has-text-centered">
-              <video class="level-set-interpolate" controls autoplay loop playsinline muted height="100%">
-                <source src="./static/figures/level_set/interpolate2.mp4" type="video/mp4">
-              </video>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test14.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test15.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test16.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test17.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test18.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test19.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/test/Test20.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
             </div>
           </div>
         </div>
       </div>
-      <!--/ Level Sets. -->
 
-      <div class="column is-half">
-        <div class="content has-text-justified">
-          <h3 class="is-4">Slicing Surfaces</h3>
-          <p>
-            Consider the follow shapes, which have different permutations of O xand X.
-          </p>
-          <div class="level-set-ox-shapes">
-            <img src="./static/figures/level_set/ox/0.svg"/>
-            <img src="./static/figures/level_set/ox/1.svg"/>
-            <img src="./static/figures/level_set/ox/2.svg"/>
-            <img src="./static/figures/level_set/ox/3.svg"/>
-          </div>
-          <p>
-            Traditionally, level-set methods use straight planes to slice the higher-dimensional
-            surface:
-          </p>
-          <model-viewer class="level-set-slices"
-                        src="./static/figures/level_set/ox/ox_ap.glb"
-                        alt="Slices through a 3D ambient surface."
-                        environment-image="neutral" auto-rotate camera-controls></model-viewer>
-          <p>
-            This means the higher-dimensional shape must contain copies of the same shape since
-            each permutation has to lie along a single straight slice through the z-axis. If we let
-            the slicing plane bend, it results in a much cleaner template:
-          </p>
-          <model-viewer class="level-set-slices"
-                        src="./static/figures/level_set/ox/ox_ds.glb"
-                        alt="Slices through a 3D ambient surface."
-                        environment-image="neutral" auto-rotate camera-controls></model-viewer>
-          <p>Please see the paper for details.</p>
-        </div>
-      </div>
+      <br style="line-height: 50px;">
 
-    </div>
-  </div>
-
-
-  <div class="container is-max-desktop">
-    <div class="content has-text-justified">
-      <h2 class="title is-3">HyperNeRF</h2>
-      <p>
-        The HyperNeRF architecture is a straightforward extension to Nerfies. The key difference is
-        that the template NeRF is conditioned on additional higher-dimensional coordinates, where
-        the higher dimensional coordinates are given by an "ambient slicing surface" which can be
-        thought of as a higher dimensional analog to the deformation field.
-      </p>
-      <div class="has-text-centered">
-        <img style="width: 90%;" src="./static/figures/architecture.svg"
-             alt="HyperNeRF architecture."/>
-      </div>
-      <h3 class="title is-4">Hyper-Space Template</h3>
-      <p>
-        HyperNeRF leverages main idea of level set methods by using a template NeRF which lives in
-        higher dimensions. In addition to the spatial coordinates (X, Y, Z), the NeRF MLP takes
-        additional higher dimensional coordinates W<sub>1</sub> and W<sub>2</sub>. We call these
-        the "ambient dimensions".
-      </p>
-      <p>
-        Here is an interactive viewer for the hyper-space of capture shown in the teaser. Drag the
-        <span style="color: #29e">blue cursor</span> around to change the ambient dimension rendered
-        on the right.
-      </p>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-half">
-        <div class="hyper-space-wrapper has-text-centered">
-          <div class="hyper-space-axis">
-            <div class="hyper-space">
-              <div class="hyper-space-cursor"></div>
+      <div style="border-radius: 25px; background-color: rgb(57, 155, 114); padding: 30px;">
+        <h2 class="title is-3" style="color:rgb(26, 37, 34)">Validation Set</h2>
+        <div class="sliderc">
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Test1.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
             </div>
           </div>
-          Ambient Dimension Coordinates
-          <br/>
-          <small>(Background shows log density of coordinate)</small>
-        </div>
-      </div>
-      <div class="column is-half has-text-centered">
-        <div class="hyper-grid-wrapper">
-          <div class="hyper-grid-rgb">
-            <img src="./static/figures/hyper_grid.jpg"/>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Test2.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Test3.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Test4.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val1.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val2.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val3.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val4.png"/>
+              </div>
+            </div>
+
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+      
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val5.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val6.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val7.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/val/Val8.png"/>
+              </div>
+
+              <div class="slider">
+                <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+                <span id="val">1</span>
+              </div>
+            </div>
           </div>
         </div>
-        The hyper-space template rendered from a fixed viewpoint.
       </div>
-    </div>
-  </div>
-</section>
 
-<hr/>
+      <br style="line-height: 50px;">
 
-<section class="section" id="BibTeX">
-  <div class="container content is-max-desktop">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021hypernerf,
-  author = {Park, Keunhong and Sinha, Utkarsh and Hedman, Peter and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Martin-Brualla, Ricardo and Seitz, Steven M.},
-  title = {HyperNeRF: A Higher-Dimensional Representation for Topologically Varying Neural Radiance Fields},
-  journal = {ACM Trans. Graph.},
-  issue_date = {December 2021},
-  publisher = {ACM},
-  volume = {40},
-  number = {6},
-  month = {dec},
-  year = {2021},
-  articleno = {238},
-}</code></pre>
-  </div>
-</section>
+      <div style="border-radius: 25px; background-color: rgb(57, 149, 155); padding: 30px;">
+        <h2 class="title is-3" style="color:rgb(26, 35, 37)">Train Set</h2>
+        <div class="sliderc">
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene1_a.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene1_b.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene2_a.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
 
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene2_b.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
 
-<section class="section" id="acknowledgements">
-  <div class="container content is-max-desktop">
-    <h2 class="title">Acknowledgements</h2>
-    <p>Special thanks to <a href="https://homes.cs.washington.edu/~holynski/">Aleksander Hołyński</a>,
-      <a href="https://roxanneluo.github.io/">Xuan Luo</a>, and Haley Cho for their support and
-      help with collecting data. Thanks to <a href="https://zhengqili.github.io/">Zhengqi Li</a> and
-      <a href="http://www.oliverwang.info/">Oliver Wang</a> for their help with the NSFF experiments.</p>
-  </div>
-</section>
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene3_a.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
 
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene4.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
 
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link" href="https://arxiv.org/pdf/2106.13228.pdf">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-  </div>
-</footer>
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene5.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
 
-<script type="text/javascript" src="./static/slick/slick.min.js"></script>
-</body>
-</html>
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene6.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene7.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene8.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene9.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene10_a.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Scene10_b.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test20.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test13.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test14.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test15.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test16.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test17.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test18.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test19.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test20.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+          
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test15.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+
+          <div class="container-scene">
+            <div class="wrapper">
+              <div class="scene-imgs">
+                <img src="./static/figures/train/Test16.png"/>
+              </div>
+            </div>
+            
+            
+            <div class="slider">
+              <input id="range" type="range" min="0" max="1" value="1" step="0.10">
+              <span id="val">1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </content>
+      <script src="https://kenwheeler.github.io/slick/slick/slick.js"></script>
+      <script>
+        $(window).on('load', function() {
+          bulmaCarousel.attach('#results-carousel-horizontal', {
+            slidesToScroll: 1,
+            slidesToShow: 3,
+            loop: true,
+          });
+      
+          bulmaCarousel.attach('#results-carousel-testimonials', {
+            slidesToScroll: 1,
+            slidesToShow: 3,
+            loop: true,
+            breakpoints: [
+              {
+                changePoint: 50 + 260 * 2,
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                loop: true,
+              },
+              {
+                changePoint: 50 + 260 * 3,
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                loop: true,
+              },
+              {
+                changePoint: 50 + 260 * 4,
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                loop: true,
+              }
+            ],
+          });
+
+      
+          $('.results-carousel').css({
+            'max-height': '2000px',
+            'visibility': 'visible'
+          });
+        });
+      
+        $(document).ready(function() {
+          // Prevent carousel from moving when interacting with sliders
+          $('.slider input[type="range"]').on('touchstart mousedown', function(e) {
+            e.stopPropagation();
+          });
+        });
+
+        $(".sliderc").slick({
+          centerMode: true,
+          centerPadding: "0px",
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          dots: true,
+          focusOnSelect: true
+        });
+
+      </script>
+
+      <script src="./static/js/index.js"></script>
+    </body>
+    </html>
+    

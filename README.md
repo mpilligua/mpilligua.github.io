@@ -1,1 +1,0 @@
-# HyperNeRF Website

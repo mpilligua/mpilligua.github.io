@@ -184,3 +184,9 @@ button:hover{
 span.highlight {
   background-color: #ffffd0;
 }
+
+
+.footer .icon-link {
+  font-size: 25px;
+  color: #000;
+}

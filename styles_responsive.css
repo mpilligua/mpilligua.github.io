@@ -110,3 +110,30 @@ hr {
   }
 }
 
+  .image-hover-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .image-hover-wrapper img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.3s ease;
+  }
+
+  .hover-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+  }
+
+  .image-hover-wrapper:hover .hover-image {
+    opacity: 1;
+  }
+
+  .image-hover-wrapper:hover .default-image {
+    opacity: 0;
+  }

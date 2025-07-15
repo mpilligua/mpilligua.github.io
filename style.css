@@ -1,0 +1,382 @@
+/* --- FONTS & GENERAL STYLES --- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px; /* Offset for the sticky nav bar */
+}
+body {
+  line-height: 1.6em;
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  background-color: #f8f8f8;
+  color: #333;
+}
+a {
+  color: #1e5fa1;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+a:hover {
+  color: #f09228;
+}
+
+/* --- NAVIGATION BAR --- */
+.navbar {
+  background: #ffffff;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  height: 70px;
+  width: 100%;
+  max-width: 1100px;
+  padding: 0 20px;
+}
+.nav-logo {
+  color: #111;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  font-family: 'Optima', sans-serif;
+  font-weight: bold;
+}
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.nav-item {
+  height: 70px;
+}
+.nav-link {
+  color: #333;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 0 1rem;
+  height: 100%;
+  border-bottom: 3px solid transparent;
+}
+.nav-link:hover, .nav-link.active {
+  color: #1e5fa1;
+  border-bottom-color: #1e5fa1;
+}
+.nav-link.active {
+  font-weight: bold;
+}
+
+/* --- LAYOUT & TYPOGRAPHY --- */
+main.page-container {
+  max-width: 1020px;
+  margin: 40px auto;
+  padding: 50px;
+  background-color: #FFF;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+}
+.content-section {
+  padding-top: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+}
+/* Remove top border for the first section on any page */
+.profile-grid, #projects:first-child, #all-projects, #all-honors, #cv-preview {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+.page-title {
+  font-family: 'Optima', sans-serif;
+  font-size: 32px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+.section-heading {
+  font-family: 'Optima', sans-serif;
+  font-size: 26px;
+  color: #111;
+  margin-bottom: 25px;
+}
+.profile__name {
+  font-family: 'Optima', sans-serif;
+  font-size: 36px;
+  margin-bottom: 0.5em;
+}
+
+/* --- PROFILE SECTION --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  gap: 30px;
+  align-items: center;
+}
+.profile__info {
+  text-align: left;
+}
+.profile__photo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile__photo {
+  width: 160px;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.profile__links {
+  margin-top: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* --- PROJECT STYLES (SHARED) --- */
+.project__image img, .project__image .image-hover-wrapper {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+.project__title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #000;
+}
+.project__title-link {
+  color: #1772d0;
+}
+.project__title-link:hover .project__title {
+  color: #818181;
+}
+.project__authors {
+  margin: 5px 0;
+}
+.project__conference {
+  margin: 8px 0;
+  font-style: italic;
+}
+.project__conference--highlight {
+  color: #c0392b;
+  font-weight: bold;
+}
+.project__links {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.bibtex {
+  margin-top: 15px;
+}
+.bibtex pre {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 13px;
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+/* --- DETAILED PROJECT LIST (projects.html) --- */
+#all-projects .project-grid {
+  display: grid;
+  grid-template-columns: 30% 70%;
+  gap: 25px;
+  align-items: flex-start; /* Aligns items to the top */
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+#all-projects .project-grid:last-child {
+  border-bottom: none;
+}
+
+/* --- FEATURED PROJECTS (index.html) --- */
+#projects .project-grid {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: 25px;
+  align-items: center;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+#projects .project-grid:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+#projects .project__image img, #projects .image-hover-wrapper {
+  height: 220px;
+  object-fit: cover;
+}
+.view-all-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+.view-all-link {
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+/* --- NEWS SECTION --- */
+.news-list {
+  list-style: none;
+  padding-left: 0;
+}
+.news-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #f5f5f5;
+}
+.news-list li:last-child {
+  border-bottom: none;
+}
+.news-date {
+  font-weight: 700;
+  color: #555;
+  width: 70px;
+  flex-shrink: 0;
+}
+
+/* --- EXPERIENCE SECTION --- */
+.experience-grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 25px;
+  align-items: center;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+.experience-grid:last-child {
+  border-bottom: none;
+}
+.experience__logo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+.experience__date {
+  color: #666;
+  font-size: 0.95em;
+}
+
+/* --- AWARDS SECTION (COMPACT) --- */
+.awards-list {
+  list-style-position: inside;
+  padding-left: 0;
+}
+.honor-item {
+  margin-bottom: 1.5rem; /* Reduced from 2.5rem */
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+#all-honors > .honor-item:last-child {
+  border-bottom: none;
+}
+.honor-item h3 {
+  font-family: 'Optima', sans-serif;
+  font-size: 20px;
+  margin-bottom: 2px; /* Reduced from 5px */
+}
+.honor-date {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 8px; /* Reduced from 10px */
+}
+.honor-description {
+  line-height: 1.5em; /* Tighter line spacing */
+  margin-top: 0;
+}
+
+/* --- CV PAGE --- */
+.cv-toolbar {
+  margin-bottom: 20px;
+  text-align: right;
+}
+.cv-embed-container {
+  border: 1px solid #ccc;
+  padding: 5px;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+/* --- IMAGE HOVER --- */
+.image-hover-wrapper {
+  position: relative;
+}
+.image-hover-wrapper .hover-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.image-hover-wrapper:hover .hover-image {
+  opacity: 1;
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 0;
+  }
+  .navbar {
+    position: static;
+  }
+  .nav-menu {
+    display: none;
+  }
+  main.page-container {
+    margin: 0;
+    padding: 20px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .profile-grid, 
+  #projects .project-grid, 
+  #all-projects .project-grid, 
+  .experience-grid {
+    grid-template-columns: 100%;
+    text-align: center;
+  }
+  .profile__info {
+    grid-row: 2;
+    text-align: center;
+  }
+  .profile__photo-container {
+    grid-row: 1;
+    margin-bottom: 20px;
+  }
+  #all-projects .project__info, 
+  .experience__info, 
+  .news-list li {
+    text-align: left;
+  }
+  .project__links, .profile__links {
+    justify-content: center;
+  }
+}

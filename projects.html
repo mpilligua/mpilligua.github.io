@@ -15,13 +15,30 @@
 
   <nav class="navbar">
     <div class="navbar-container">
-      <a href="index.html" class="nav-logo">Maria Pilligua</a>
-      <ul class="nav-menu">
-        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="projects.html" class="nav-link active">Projects</a></li>
-        <li class="nav-item"><a href="honors.html" class="nav-link">Scholarships & Honors</a></li>
-        <li class="nav-item"><a href="cv.html" class="nav-link">CV</a></li>
-      </ul>
+      <div class="desktop-nav">
+        <a href="index.html" class="nav-logo">Maria Pilligua</a>
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="projects.html" class="nav-link active">Projects</a></li>
+            <li class="nav-item"><a href="honors.html" class="nav-link">Scholarships & Honors</a></li>
+            <li class="nav-item"><a href="cv.html" class="nav-link">CV</a></li>
+          </ul>
+      </div>
+      
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -146,7 +163,7 @@
 
     </section>
   </main>
-  
+ 
   <script>
     function toggleBib(id) {
       var element = document.getElementById(id);
@@ -154,6 +171,24 @@
         element.hidden = !element.hidden;
       }
     }
+
+      // script at the bottom of index.html
+
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+
+    // Toggle the menu when the "..." button is clicked
+    menuTrigger.addEventListener('click', function(event) {
+      event.stopPropagation(); // Prevents the window click event from firing immediately
+      menuDropdown.classList.toggle('active');
+    });
+
+    // Close the menu if you click anywhere else on the page
+    window.addEventListener('click', function(event) {
+      if (menuDropdown.classList.contains('active')) {
+        menuDropdown.classList.remove('active');
+      }
+    });
   </script>
 
 </body>

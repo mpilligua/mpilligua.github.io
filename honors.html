@@ -13,88 +13,146 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="navbar-container">
-      <a href="index.html" class="nav-logo">Maria Pilligua</a>
-      <ul class="nav-menu">
-        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-        <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
-        <li class="nav-item"><a href="honors.html" class="nav-link active">Scholarships & Honors</a></li>
-        <li class="nav-item"><a href="cv.html" class="nav-link">CV</a></li>
-      </ul>
+      <div class="desktop-nav">
+        <a href="index.html" class="nav-logo">Maria Pilligua</a>
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
+            <li class="nav-item"><a href="honors.html" class="nav-link active">Scholarships & Honors</a></li>
+            <li class="nav-item"><a href="cv.html" class="nav-link">CV</a></li>
+          </ul>
+      </div>
+      
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
     </div>
   </nav>
 
   <main class="page-container">
-    <section id="all-honors">
+    <section id="all-honors" class="timeline">
       <h1 class="page-title">Scholarships & Honors</h1>
 
-      <article class="honor-item">
-        <h3>EPFL Excellence Scholarship (ESOP)</h3>
-        <p class="honor-date">Awarded 2025</p>
-        <p class="honor-description">
-          A highly competitive, merit-based fellowship awarded by EPFL to a limited number of incoming Master's students with outstanding academic records. The scholarship covers tuition fees and provides a monthly stipend to support living expenses in Lausanne, Switzerland, enabling recipients to focus entirely on their research and studies.
-        </p>
-      </article>
+      <div class="timeline-container">
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-graduation-cap"></i></div>
+          <div class="honor-content">
+            <h3>EPFL Excellence Scholarship (ESOP)</h3>
+            <p class="honor-date">Awarded 2025</p>
+            <p class="honor-description">
+              A highly competitive, merit-based fellowship awarded by EPFL to a limited number of incoming Master's students with outstanding academic records. The scholarship covers tuition fees and provides a monthly stipend to support living expenses in Lausanne, Switzerland, enabling recipients to focus entirely on their research and studies.
+            </p>
+          </div>
+        </article>
 
-      <article class="honor-item">
-        <h3>Best Presentation Award, Computer Vision Center</h3>
-        <p class="honor-date">Awarded 2025</p>
-        <p class="honor-description">
-          Received for the final presentation of my research internship at the CVC. This award recognizes the clarity, scientific contribution, and delivery of the presentation on "HyperNVD" among all research interns.
-        </p>
-      </article>
-      
-      <article class="honor-item">
-        <h3>DEI Scholarship, CVPR 2025</h3>
-        <p class="honor-date">Awarded 2025</p>
-        <p class="honor-description">
-          A competitive travel and registration grant to attend the Conference on Computer Vision and Pattern Recognition (CVPR), supporting diversity, equity, and inclusion in the computer vision community.
-        </p>
-      </article>
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-trophy"></i></div>
+          <div class="honor-content">
+            <h3>Best Presentation Award, Computer Vision Center</h3>
+            <p class="honor-date">Awarded 2025</p>
+            <p class="honor-description">
+              Received for the final presentation of my research internship at the CVC. This award recognizes the clarity, scientific contribution, and delivery of the presentation on "HyperNVD" among all research interns.
+            </p>
+          </div>
+        </article>
+        
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-plane"></i></div>
+          <div class="honor-content">
+            <h3>DEI Scholarship, CVPR 2025</h3>
+            <p class="honor-date">Awarded 2025</p>
+            <p class="honor-description">
+              A competitive travel and registration grant to attend the Conference on Computer Vision and Pattern Recognition (CVPR), supporting diversity, equity, and inclusion in the computer vision community.
+            </p>
+          </div>
+        </article>
 
-      <article class="honor-item">
-        <h3>DEI Scholarship, ECCV 2024</h3>
-        <p class="honor-date">Awarded 2024</p>
-        <p class="honor-description">
-          Selected as one of 29 outstanding researchers from a pool of 524 applicants to receive a grant supporting attendance at the European Conference on Computer Vision (ECCV).
-        </p>
-      </article>
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-plane"></i></div>
+          <div class="honor-content">
+            <h3>DEI Scholarship, ECCV 2024</h3>
+            <p class="honor-date">Awarded 2024</p>
+            <p class="honor-description">
+              Selected as one of 29 outstanding researchers from a pool of 524 applicants to receive a grant supporting attendance at the European Conference on Computer Vision (ECCV).
+            </p>
+          </div>
+        </article>
 
-      <article class="honor-item">
-        <h3>Elena Maseras Scholarship (CVC)</h3>
-        <p class="honor-date">Awarded 2024</p>
-        <p class="honor-description">
-          A scholarship from the Computer Vision Center to support promising young researchers in pursuing their scientific careers in computer vision and artificial intelligence.
-        </p>
-      </article>
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-graduation-cap"></i></div>
+          <div class="honor-content">
+            <h3>Elena Maseras Scholarship (CVC)</h3>
+            <p class="honor-date">Awarded 2024</p>
+            <p class="honor-description">
+              A scholarship from the Computer Vision Center to support promising young researchers in pursuing their scientific careers in computer vision and artificial intelligence.
+            </p>
+          </div>
+        </article>
 
-      <article class="honor-item">
-        <h3>Best Presentation Award, Computer Vision Center</h3>
-        <p class="honor-date">Awarded 2024</p>
-        <p class="honor-description">
-          Awarded for the presentation of my work on "Low-light image enhacement" during the CVC's annual intern showcase, recognizing the project's innovation and the quality of the presentation.
-        </p>
-      </article>
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-trophy"></i></div>
+          <div class="honor-content">
+            <h3>Best Presentation Award, Computer Vision Center</h3>
+            <p class="honor-date">Awarded 2024</p>
+            <p class="honor-description">
+              Awarded for the presentation of my work on "Low-light image enhacement" during the CVC's annual intern showcase, recognizing the project's innovation and the quality of the presentation.
+            </p>
+          </div>
+        </article>
 
-      <article class="honor-item">
-        <h3>Rosa Sensat Scholarship (CVC)</h3>
-        <p class="honor-date">Awarded 2023</p>
-        <p class="honor-description">
-          An introductory research scholarship provided by the Computer Vision Center to support undergraduate students beginning their research journey.
-        </p>
-      </article>
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-university"></i></div>
+          <div class="honor-content">
+            <h3>Rosa Sensat Scholarship (CVC)</h3>
+            <p class="honor-date">Awarded 2023</p>
+            <p class="honor-description">
+              An introductory research scholarship provided by the Computer Vision Center to support undergraduate students beginning their research journey.
+            </p>
+          </div>
+        </article>
 
-      <article class="honor-item">
-        <h3>CVC Research Scholarship</h3>
-        <p class="honor-date">Awarded 2023</p>
-        <p class="honor-description">
-          A grant provided by the Computer Vision Center to fund my initial research activities and collaboration on the "Low-light enhancement" project.
-        </p>
-      </article>
+        <article class="honor-item">
+          <div class="honor-icon"><i class="fa fa-university"></i></div>
+          <div class="honor-content">
+            <h3>CVC Research Scholarship</h3>
+            <p class="honor-date">Awarded 2023</p>
+            <p class="honor-description">
+              A grant provided by the Computer Vision Center to fund my initial research activities and collaboration on the "Low-light enhancement" project.
+            </p>
+          </div>
+        </article>
+      </div>
 
     </section>
   </main>
+
+  <script>
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+
+    menuTrigger.addEventListener('click', function(event) {
+      event.stopPropagation();
+      menuDropdown.classList.toggle('active');
+    });
+
+    window.addEventListener('click', function(event) {
+      if (menuDropdown.classList.contains('active')) {
+        menuDropdown.classList.remove('active');
+      }
+    });
+  </script>
 </body>
 </html>

@@ -13,25 +13,34 @@
 </head>
 <body>
 
+  <nav class="navbar">
     <div class="navbar-container">
-      <a href="index.html" class="nav-logo">Maria Pilligua</a>
-
+      <div class="desktop-nav">
+        <a href="index.html" class="nav-logo">Maria Pilligua</a>
+          <ul class="nav-menu">
+            <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="projects.html" class="nav-link">Projects</a></li>
+            <li class="nav-item"><a href="honors.html" class="nav-link">Scholarships & Honors</a></li>
+            <li class="nav-item"><a href="cv.html" class="nav-link">CV</a></li>
+          </ul>
+      </div>
+      
       <div class="mobile-nav">
         <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
           <i class="fa fa-ellipsis-h"></i>
         </button>
-
+        
         <div class="apple-menu" id="apple-menu-dropdown">
           <ul>
             <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
             <li><a href="projects.html">Projects <i class="fa fa-flask"></i></a></li>
             <li><a href="honors.html">Honors <i class="fa fa-trophy"></i></a></li>
-            <li class="separator"></li>
             <li><a href="cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
           </ul>
         </div>
       </div>
     </div>
+  </nav>
 
   <main class="page-container">
     
@@ -173,18 +182,39 @@
 
     <!-- Awards Section -->
     <section class="content-section" id="awards">
-      <h2 class="section-heading">🏆 Awards & Scholarships</h2>
-      <p>Ranked 1st in my promotion with a GPA of 9.4/10. Received honors (top 5% of the promotion) on 19 courses.</p>
-      <ul class="awards-list">
-        <li>EPFL Excellence Scholarship (ESOP), 2025</li>
-        <li>Best Presentation Award, Computer Vision Center, 2025</li>
-        <li>DEI Scholarship, CVPR 2025</li>
-        <li>DEI Scholarship, ECCV 2024</li>
-        <li>Elena Maseras Scholarship (CVC), 2024</li>
-        <li>Best Presentation Award, Computer Vision Center, 2024</li>
-      </ul>
-       <div class="view-all-container">
-        <a href="honors.html" class="view-all-link">View Details &rarr;</a>
+      <div class="item text2 honors-summary">
+        <h2>🏆 Honors & Scholarships</h2>
+
+        <p class="summary-highlight">
+          Currently ranked in the top 5% in my promotion with a <strong>9.4/10 GPA</strong>. I have received honors (top 5% of the promotion) on 19 courses.
+        </p>
+
+        <ul class="honors-list-main">
+          <li>
+            <span class="honor-icon-main">🎓</span>
+            <div class="honor-text">
+              <strong>EPFL Excellence Scholarship</strong> &ndash; EPFL, June 2025
+            </div>
+          </li>
+          <li>
+            <span class="honor-icon-main">✈️</span>
+            <div class="honor-text">
+              <strong>DEI Scholarship</strong> &ndash; ECCV 2024 <small>(Top 5% of 524 applicants)</small>
+            </div>
+          </li>
+          <li>
+            <span class="honor-icon-main">🏆</span>
+            <div class="honor-text">
+              <strong>Best Presentation Award</strong> &ndash; CVC, June 2025
+            </div>
+          </li>
+          <li>
+            <span class="honor-icon-main">...</span>
+            <div class="honor-text">
+              <a href="honors.html">View all 8 awards & scholarships...</a>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 

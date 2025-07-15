@@ -612,8 +612,12 @@ main.page-container {
   .nav-link:hover, .nav-link.active {
     border-bottom: none;
   }
+  
+  #projects .project-grid, 
+  #all-projects .project-grid, 
   .profile-grid {
-    grid-template-columns: 100%;
+    display: grid;
+    grid-template-columns: 1fr; 
     text-align: center;
   }
   .profile__photo-container {
@@ -659,10 +663,6 @@ main.page-container {
     height: 600px; /* Adjusted height for better mobile view */
   }
 
-  .profile-grid, 
-  #projects .project-grid, 
-  #all-projects .project-grid, 
-  
   .experience-grid {
     grid-template-columns: 100px 1fr;
     gap: 10px;

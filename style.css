@@ -156,7 +156,7 @@ main.page-container {
   display: block;
 }
 .project__title {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 700;
   color: #000;
 }
@@ -199,8 +199,8 @@ main.page-container {
 /* --- DETAILED PROJECT LIST (projects.html) --- */
 #all-projects .project-grid {
   display: grid;
-  grid-template-columns: 30% 70%;
-  gap: 25px;
+  grid-template-columns: 40% 60%;
+  gap: 40px;
   align-items: flex-start; /* Aligns items to the top */
   padding-bottom: 2rem;
   margin-bottom: 2rem;
@@ -209,6 +209,12 @@ main.page-container {
 #all-projects .project-grid:last-child {
   border-bottom: none;
 }
+/* NEW: Rule to make images on projects.html a consistent size */
+#all-projects .project__image img, #all-projects .image-hover-wrapper {
+  height: 200px;
+  object-fit: cover;
+}
+
 
 /* --- FEATURED PROJECTS (index.html) --- */
 #projects .project-grid {

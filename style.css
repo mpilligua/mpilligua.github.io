@@ -1,22 +1,11 @@
 /* --- FONTS & GENERAL STYLES --- */
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px; /* Offset for the sticky nav bar */
-}
-body {
-  line-height: 1.6em;
-  font-family: 'Lato', sans-serif;
-  font-size: 16px;
-  background-color: #f8f8f8;
-  color: #333;
-}
-a {
-  color: #1e5fa1;
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-}
+/* ... your existing styles ... */
 a:hover {
   color: #f09228;
+}
+
+.footer {
+  margin-top: 100px;
 }
 
 /* --- NAVIGATION BAR --- */
@@ -52,37 +41,76 @@ a:hover {
   font-family: 'Optima', sans-serif;
   font-weight: bold;
 }
+
 .nav-menu {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* Aligns below the navbar */
+    left: -100%; /* Starts hidden off-screen */
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1); /* Softer, deeper shadow for depth */
+    border-top: 1px solid #f0f0f0; /* A clean line separating menu from navbar */
+    transition: left 0.3s ease-in-out;
+}
+.nav-menu.active {
+    left: 0; /* Slides the menu into view */
 }
 .nav-item {
-  height: 70px;
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #f0f0f0; /* Soft separator between links */
+    background-color: transparent; /* Remove old background */
+    border: none; /* Remove old border */
 }
+/* Removes the border from the very last menu item */
+.nav-item:last-child {
+    border-bottom: none;
+}
+
 .nav-link {
-  color: #333;
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  padding: 0 1rem;
-  height: 100%;
-  border-bottom: 3px solid transparent;
+    width: 100%;
+    height: 100%;
+    padding: 20px 0; /* More vertical padding for easier tapping */
+    justify-content: center; /* Center the text */
+    font-size: 1.1rem;
+    color: #333;
+    border-bottom: none; /* Remove the desktop underline */
+    transition: background-color 0.2s ease-in-out; /* Smooth hover effect */
 }
-.nav-link:hover, .nav-link.active {
-  color: #1e5fa1;
-  border-bottom-color: #1e5fa1;
-}
+
+/* A modern hover and active state for mobile */
+.nav-link:hover,
 .nav-link.active {
-  font-weight: bold;
+    background-color: #f8f9fa; /* A very light grey for feedback */
+    color: #1e5fa1; /* Your theme's blue color */
+    border-bottom: none; /* Ensure no underline on mobile */
 }
+
+
+/* === START: NEW HAMBURGER STYLES === */
+.nav-toggle {
+  display: none; /* Hidden on desktop */
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  transition: all 0.3s ease-in-out;
+  background-color: #333;
+}
+/* === END: NEW HAMBURGER STYLES === */
 
 /* --- LAYOUT & TYPOGRAPHY --- */
 main.page-container {
-  max-width: 1020px;
+  max-width: 80%;
   margin: 40px auto;
   padding: 50px;
   background-color: #FFF;
@@ -150,6 +178,7 @@ main.page-container {
 
 /* --- PROJECT STYLES (SHARED) --- */
 .project__image img, .project__image .image-hover-wrapper {
+  object-fit: cover;
   width: 100%;
   height: auto;
   border-radius: 8px;
@@ -209,17 +238,11 @@ main.page-container {
 #all-projects .project-grid:last-child {
   border-bottom: none;
 }
-/* NEW: Rule to make images on projects.html a consistent size */
-#all-projects .project__image img, #all-projects .image-hover-wrapper {
-  height: 200px;
-  object-fit: cover;
-}
-
 
 /* --- FEATURED PROJECTS (index.html) --- */
 #projects .project-grid {
   display: grid;
-  grid-template-columns: 45% 55%;
+  grid-template-columns: 40% 60%;
   gap: 25px;
   align-items: center;
   padding-bottom: 2rem;
@@ -232,7 +255,7 @@ main.page-container {
   margin-bottom: 0;
 }
 #projects .project__image img, #projects .image-hover-wrapper {
-  height: 220px;
+  height: 180px;
   object-fit: cover;
 }
 .view-all-container {
@@ -344,24 +367,193 @@ main.page-container {
   opacity: 1;
 }
 
+/* --- NEW APPLE-STYLE DROPDOWN MENU --- */
+
+/* This container will only show on mobile */
+.mobile-nav {
+  position: relative; /* Needed for positioning the dropdown */
+  display: none; /* Hidden by default, shown in media query */
+}
+
+/* The "..." trigger button */
+.menu-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem; /* Makes the "..." icon larger */
+  color: #333;
+  padding: 5px;
+}
+
+/* The main dropdown container */
+.apple-menu {
+  display: none; /* Hidden until active */
+  position: absolute;
+  top: 45px; /* Position below the button */
+  right: 0;
+  width: 240px;
+  background: rgba(255, 255, 255, 0.85); /* Semi-transparent white */
+  backdrop-filter: blur(15px); /* This creates the "frosted glass" effect */
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* The little triangle pointing up from the menu */
+.apple-menu::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 12px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid rgba(255, 255, 255, 0.85);
+}
+
+/* When the menu is active/open */
+.apple-menu.active {
+  display: block;
+}
+
+/* Styling for the list and items */
+.apple-menu ul {
+  list-style: none;
+  margin: 5px;
+  padding: 0;
+}
+
+.apple-menu li a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  font-size: 1rem;
+  color: #111;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.apple-menu li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.apple-menu li a .fa {
+  color: #555;
+}
+
+/* The separator line */
+.apple-menu .separator {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 5px 0;
+}
+
+.project__links__mobile {
+    display: none;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+  }
+
 /* --- RESPONSIVE DESIGN --- */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   html {
     scroll-padding-top: 0;
   }
+
+  main.page-container {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .project__image img, .project__image .image-hover-wrapper {
+    object-fit: fill;
+  }
+
   .navbar {
     position: static;
   }
   .nav-menu {
     display: none;
   }
-  main.page-container {
-    margin: 0;
-    padding: 20px;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
+
+  .nav-toggle {
+    display: flex; /* Show hamburger menu on mobile */
   }
+  .nav-menu.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    border-top: 1px solid #eee;
+  }
+  .nav-item {
+    width: 100%;
+  }
+  .nav-link {
+    padding: 15px 20px;
+    text-align: center;
+  }
+  .nav-link:hover, .nav-link.active {
+    border-bottom: none;
+  }
+  .profile-grid {
+    grid-template-columns: 100%;
+    text-align: center;
+  }
+  .profile__photo-container {
+    margin-bottom: 20px;
+  }
+
+  .profile__photo {
+    width: 120px;
+    height: 160px;
+  }
+  .project-grid {
+    grid-template-columns: 100%;
+    gap: 20px;
+  }
+
+  .experience__logo img {
+    height: 10%;
+    width: auto;
+  }
+
+  .awards-list {
+    padding-left: 1rem;
+  }
+  .honor-item {
+    margin-bottom: 1rem; /* Reduced from 1.5rem */
+    padding-bottom: 1rem; /* Reduced from 1.5rem */
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .honor-item h3 {
+    font-size: 18px; /* Slightly smaller font size */
+  }
+  .honor-date {
+    font-size: 0.9em; /* Slightly smaller font size */
+  }
+  .honor-description {
+    font-size: 0.95em; /* Slightly smaller font size */
+    line-height: 1.4em; /* Tighter line spacing */
+  }
+  .cv-toolbar {
+    text-align: center;
+  }
+  .cv-embed-container {
+    width: 100%;
+    height: 600px; /* Adjusted height for better mobile view */
+  }
+
   .profile-grid, 
   #projects .project-grid, 
   #all-projects .project-grid, 
@@ -377,12 +569,14 @@ main.page-container {
     grid-row: 1;
     margin-bottom: 20px;
   }
-  #all-projects .project__info, 
-  .experience__info, 
-  .news-list li {
-    text-align: left;
+  .project__links {
+    display: none;
   }
-  .project__links, .profile__links {
-    justify-content: center;
+  .project__links__mobile {
+    display: flex;
   }
+  .mobile-nav {
+    display: block; /* Show the mobile menu container */
+  }
+
 }

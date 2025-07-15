@@ -216,8 +216,8 @@ main.page-container {
 #projects .project-grid {
   display: grid;
   grid-template-columns: 40% 60%;
-  gap: 25px;
-  align-items: center;
+  gap: 40px;
+  align-items: flex-start;
   padding-bottom: 2rem;
   margin-bottom: 2rem;
   border-bottom: 1px solid #f0f0f0;
@@ -227,10 +227,7 @@ main.page-container {
   padding-bottom: 0;
   margin-bottom: 0;
 }
-#projects .project__image img, #projects .image-hover-wrapper {
-  height: 220px;
-  object-fit: cover;
-}
+
 .view-all-container {
   text-align: center;
   margin-top: 2rem;
@@ -280,6 +277,7 @@ main.page-container {
   max-width: 100%;
   height: auto;
   border-radius: 8px;
+  object-fit: contain;
 }
 .experience__date {
   color: #666;
@@ -632,8 +630,7 @@ main.page-container {
   }
 
   .experience__logo img {
-    height: 10%;
-    width: auto;
+    height: 100px; /* Smaller logo for mobile */
   }
 
   .awards-list {
@@ -665,10 +662,15 @@ main.page-container {
   .profile-grid, 
   #projects .project-grid, 
   #all-projects .project-grid, 
+  
   .experience-grid {
-    grid-template-columns: 100%;
-    text-align: center;
+    grid-template-columns: 100px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
   }
+
   .profile__info {
     grid-row: 2;
     text-align: center;

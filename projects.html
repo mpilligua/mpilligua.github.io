@@ -47,15 +47,30 @@
       <h1 class="page-title">Projects</h1>
 
       <article class="project-grid">
+        <div class="project__image">
+          <video src="images/t2m_teaser.mp4" autoplay loop muted playsinline style="width:100%; border-radius: 4px;"></video>
+        </div>
+        <div class="project__info">
+          <a href="#" class="project__title-link"><p class="project__title">Controllable Autoregressive Text-to-Motion Generation <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="">Pau Amargant</a>, <a href="">Miquel Lopez</a>, <a href="">Nahush Rajesh Kolhe</a></p>
+          <p class="project__conference">EPFL CS-503 (in progress)</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">A real-time text-to-motion model where the user can steer generation mid-sequence: at any frame, specify a full-body pose, hand or foot position, or a path the character must follow. Built on T2M-GPT with a VQ-VAE motion codebook and an 18-layer causal Transformer, trained on the BONES dataset (64k motion-capture sequences). Two constraint-injection architectures explored: a ControlNet-style cross-attention adapter and a prefix-token approach with custom causal masking. Aimed at the kind of online controllability that animation and interactive systems need.</p>
+          <div class="project__links">
+            <a class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page (soon!)</a>
+            <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Report (contact me)</a>
+            <a class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid">
         <div class="project__image"><img src='images/relighting.gif' alt="Relighting Demo"></div>
         <div class="project__info">
           <a href="#" class="project__title-link"><p class="project__title">Towards Controllable Image Relighting <sup>🔗</sup></p></a>
           <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
           <p class="project__conference">Bachelor's dissertation 2025</p>
           <div class="project__links">
-            <a class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page (soon!)</a>
             <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;ArXiv (contact me)</a>
-            <a class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
           </div>
         </div>
       </article>
@@ -137,9 +152,9 @@
           </div>
         </div>
         <div class="project__info">
-          <a href="#" class="project__title-link"><p class="project__title">Revisiting Robust Low-Light Enhancement <sup>🔗</sup></p></a>
-          <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="https://scholar.google.com/citations?user=LjE0U1IAAAAJ&hl=es">Ramon Baldrich</a>, <a>Pai Peng</a>, <a href="https://www.eecs.yorku.ca/~mbrown/">Michael S. Brown</a>, <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
-          <p class="project__conference">Under Review</p>
+          <a href="#" class="project__title-link"><p class="project__title">Evaluating Low-Light Image Enhancement Across Multiple Intensity Levels <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="">David Serrano-Lozano</a>, <a>Pai Peng</a>, <a href="https://scholar.google.com/citations?user=LjE0U1IAAAAJ&hl=es">Ramon Baldrich</a>, <a href="https://www.eecs.yorku.ca/~mbrown/">Michael S. Brown</a>, <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
+          <p class="project__conference project__conference--highlight">CVPR Findings 2026</p>
           <div class="project__links">
             <a class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
             <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;ArXiv</a>

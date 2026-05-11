@@ -48,8 +48,8 @@
     <header class="profile-grid" id="about">
       <div class="profile__info">
         <h1 class="profile__name">Maria Pilligua</h1>
-        <p>Starting this fall, I will pursue a Master's in Data Science at EPFL, supported by an Excellence Scholarship (ESOP).</p>
-        <p>I recently graduated in Artificial Intelligence from the Autonomous University of Barcelona, ranking in the top 5% of my class with a final GPA of 9.4/10. I bring over two years of research experience in AI, with publications at top-tier conferences such as CVPR 2025 and ECCV 2024, specializing in Computer Vision. As of July 2025, I am a Machine Learning intern at Goodnotes in London. I am highly motivated and excited to collaborate on impactful, research-driven AI projects.</p>
+        <p>I'm a Master's student in Data Science at EPFL, on an Excellence Fellowship (ESOP, top 0.004% of incoming MSc students). I work at the EPFL Computer Vision Lab on transformer architectures for 3D scene reconstruction, and I'm currently building a real-time controllable text-to-motion model with kinematic conditioning.</p>
+        <p>I graduated in Artificial Intelligence from the Autonomous University of Barcelona with the highest GPA across all engineering degrees (9.41/10). I have 5 papers at CVPR / ECCV (4 as first author), specializing in generative AI and controllability in vision models. This past summer I was a Machine Learning intern at GoodNotes in London, where I shipped a diffusion-based text-to-SVG feature now used by millions.</p>
         <p class="profile__links">
           <a href="mailto:mpilligua@cvc.uab.cat"><i class="fa fa-paper-plane" aria-hidden="true"></i> Email</a>
           <a href="https://scholar.google.com/citations?user=qzpgC1cAAAAJ&hl=en"><i class="ai ai-google-scholar" aria-hidden="true"></i> Google Scholar</a>
@@ -66,6 +66,28 @@
     <!-- Featured Projects Section -->
     <section class="content-section" id="projects">
       <h2 class="section-heading">Featured Projects</h2>
+
+      <article class="project-grid">
+        <div class="project__image">
+          <video src="images/t2m_teaser.mp4" autoplay loop muted playsinline style="width:100%; border-radius: 4px;"></video>
+        </div>
+        <div class="project__info">
+          <a href="#" class="project__title-link"><p class="project__title">Controllable Autoregressive Text-to-Motion Generation <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, Pau Amargant, Miquel Lopez, Nahush Rajesh Kolhe</p>
+          <p class="project__conference">EPFL CS-503 (in progress)</p>
+          <p style="margin-top: 4px; font-size: 0.95em; color: #555;">Real-time text-to-motion model that lets the user steer generation mid-sequence: at any frame, specify a full-body pose, hand or foot position, or a path the character must follow. Built on T2M-GPT + VQ-VAE, trained on BONES.</p>
+          <div class="project__links">
+            <a class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page (soon!)</a>
+            <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Report (contact me)</a>
+            <a class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
+          </div>
+          <div class="project__links__mobile">
+            <a class="button is-small is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page (soon!)</a>
+            <a class="button is-small is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Report (contact me)</a>
+            <a class="button is-small is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
+          </div>
+        </div>
+      </article>
 
       <article class="project-grid">
         <div class="project__image"><img src='images/edits.gif' alt="HyperNVD Demo"></div>
@@ -111,14 +133,10 @@
           <p class="project__authors"><strong>Maria Pilligua</strong>, Javier Vazquez-Corral</p>
           <p class="project__conference">Bachelor's dissertation 2025</p>
           <div class="project__links">
-            <a class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page (soon!)</a>
             <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;ArXiv (contact me)</a>
-            <a class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
           </div>
           <div class="project__links__mobile">
-            <a class="button is-small is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page (soon!)</a>
             <a class="button is-small is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;ArXiv (contact me)</a>
-            <a class="button is-small is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
         </div>
       </article>
 
@@ -131,11 +149,14 @@
     <section class="content-section" id="news">
       <h2 class="section-heading">📣 News</h2>
       <ul class="news-list">
-        <li><span class="news-date">Nov 2025</span>I received an award for best academic record across all enginering degrees at UAB</li>
+        <li><span class="news-date">May 2026</span>Currently building a real-time controllable text-to-motion model at EPFL, with kinematic conditioning over pose, end-effectors, and root trajectories.</li>
+        <li><span class="news-date">Apr 2026</span>3rd place at RoboHack EPFL with <strong>MAPA</strong>: a multimodal agent controlling a quadruped robot as a guide dog (voice + VLM + SLAM).</li>
+        <li><span class="news-date">Mar 2026</span>Our paper <em>"Evaluating Low-Light Image Enhancement Across Multiple Intensity Levels"</em> was accepted to CVPR Findings 2026.</li>
+        <li><span class="news-date">Oct 2025</span>Joined the EPFL Computer Vision Lab as a student researcher, working on transformer-based 3D scene reconstruction.</li>
+        <li><span class="news-date">Sep 2025</span>Finished my ML internship at GoodNotes. Shipped a diffusion-based text-to-SVG feature now used by millions of users (40s → 7s latency).</li>
+        <li><span class="news-date">Sep 2025</span>Started my MSc in Data Science at EPFL as an Excellence Fellow (ESOP).</li>
         <li><span class="news-date">Jun 2025</span>Successfully defended my bachelor's dissertation, receiving a final grade of 10/10 with honors.</li>
-        <!-- <li><span class="news-date">Jun 2025</span>Started my Machine Learning internship at Goodnotes in London.</li> -->
-        <!-- <li><span class="news-date">Jun 2025</span>Thrilled to announce I will be joining EPFL for my Master's in Data Science as an Excellence Scholar!</li> -->
-        <!-- <li><span class="news-date">Feb 2025</span>Our paper, "HyperNVD", was accepted to CVPR 2025!</li> -->
+        <li><span class="news-date">Feb 2025</span>Our paper <em>"HyperNVD"</em> was accepted to CVPR 2025.</li>
       </ul>
     </section>
 
@@ -143,11 +164,19 @@
     <section class="content-section" id="experience">
       <h2 class="section-heading">💻 Experience</h2>
       <article class="experience-grid">
+        <div class="experience__logo"><img src='images/EPFL-logo.png' alt="EPFL Logo"></div>
+        <div class="experience__info">
+          <p><strong>Student Researcher at EPFL Computer Vision Lab</strong></p>
+          <p>Lausanne, Switzerland</p>
+          <p class="experience__date">October 2025 - Present</p>
+        </div>
+      </article>
+      <article class="experience-grid">
         <div class="experience__logo"><img src='images/Goodnotes.jpg' alt="Goodnotes Logo"></div>
         <div class="experience__info">
-          <p><strong>Machine Learning Intern at Goodnotes</strong></p>
+          <p><strong>Machine Learning Intern at GoodNotes</strong></p>
           <p>London, United Kingdom</p>
-          <p class="experience__date">June 2025 - Present</p>
+          <p class="experience__date">July 2025 - September 2025</p>
         </div>
       </article>
       <article class="experience-grid">
@@ -160,6 +189,32 @@
       </article>
     </section>
 
+    <!-- Hackathons Section -->
+    <section class="content-section" id="hackathons">
+      <h2 class="section-heading">⚡ Hackathons</h2>
+      <ul class="news-list">
+        <li>
+          <span class="news-date">2026</span>
+          <strong>MAPA</strong>, RoboHack EPFL, 3rd Place. Multimodal agent controlling a quadruped robot (voice, VLM, SLAM) acting as a guide dog.
+          <a href="https://devpost.com/software/mapa-lh29cx">Devpost</a> &middot; <a href="https://github.com/mpilligua/RoboHack-2026/tree/submission">Code</a>
+        </li>
+        <li>
+          <span class="news-date">2025</span>
+          <strong>Flowchart detection</strong>, GoodNotes Hackathon, 2nd Place. YOLO-based layout analysis turning hand-drawn flowcharts into editable digital objects.
+        </li>
+        <li>
+          <span class="news-date">2025</span>
+          <strong>TRAIN TALES</strong>, UAB The Hack, 2nd Place. Interactive AI travel companion narrating location-aware stories during train journeys for kids with hyperactivity.
+          <a href="https://devpost.com/software/train-tales">Devpost</a>
+        </li>
+        <li>
+          <span class="news-date">2023</span>
+          <strong>INDITECH Challenge</strong>, HackUPC, 2nd Place. Voice and gesture-controlled fashion shopping app built with Whisper, Fashion-CLIP, YOLO.
+          <a href="https://devpost.com/software/inditech">Devpost</a>
+        </li>
+      </ul>
+    </section>
+
     <!-- Education Section -->
     <section class="content-section" id="education">
       <h2 class="section-heading">🎓 Education</h2>
@@ -168,7 +223,7 @@
         <div class="experience__info">
           <p><strong>Master's in Data Science</strong></p>
           <p>EPFL, Laussane, Switzerland</p>
-          <p class="experience__date">September 2025 - August 2027 (Not started yet)</p>
+          <p class="experience__date">September 2025 - August 2027</p>
         </div>
       </article>
       <article class="experience-grid">
@@ -187,32 +242,50 @@
         <h2>🏆 Honors & Scholarships</h2>
 
         <p class="summary-highlight">
-          Currently ranked in the top 5% in my promotion with a <strong>9.4/10 GPA</strong>. I have received honors (top 5% of the promotion) on 19 courses.
+          MSc Data Science at EPFL on a top 0.004% Excellence Fellowship. Graduated UAB with the highest GPA across all engineering degrees (<strong>9.41/10</strong>), with honors on 18 courses including 3D Vision, Generative Models, Deep Learning, CV and NLP.
         </p>
 
         <ul class="honors-list-main">
           <li>
             <span class="honor-icon-main">🎓</span>
             <div class="honor-text">
-              <strong>EPFL Excellence Scholarship</strong> &ndash; EPFL, June 2025
+              <strong>EPFL MSc Excellence Fellowship (ESOP)</strong>, 2025 <small>(top 0.004% of incoming MSc students, 30 total, 40k CHF grant)</small>
+            </div>
+          </li>
+          <li>
+            <span class="honor-icon-main">🏅</span>
+            <div class="honor-text">
+              <strong>Best Academic Record across all UAB engineering degrees</strong>, 2025 <small>(granted to 4 students)</small>
+            </div>
+          </li>
+          <li>
+            <span class="honor-icon-main">🏝️</span>
+            <div class="honor-text">
+              <strong>Best Academic Record, Ibiza</strong>, 2025 <small>(top 2 students across all degrees in the region)</small>
+            </div>
+          </li>
+          <li>
+            <span class="honor-icon-main">🔬</span>
+            <div class="honor-text">
+              <strong>Best Research Project, UAB Computer Vision Center</strong>, 2024 and 2025 <small>(1 student per year)</small>
             </div>
           </li>
           <li>
             <span class="honor-icon-main">✈️</span>
             <div class="honor-text">
-              <strong>DEI Scholarship</strong> &ndash; ECCV 2024 <small>(Top 5% of 524 applicants)</small>
+              <strong>CVPR & ECCV DEI Scholarships</strong>, 2024-2025 <small>(29 of 524 applicants for ECCV)</small>
             </div>
           </li>
           <li>
-            <span class="honor-icon-main">🏆</span>
+            <span class="honor-icon-main">💡</span>
             <div class="honor-text">
-              <strong>Best Presentation Award</strong> &ndash; CVC, June 2025
+              <strong>4 research scholarships from the Computer Vision Center</strong>, 2023-2025
             </div>
           </li>
           <li>
             <span class="honor-icon-main">...</span>
             <div class="honor-text">
-              <a href="honors.html">View all 8 awards & scholarships...</a>
+              <a href="honors.html">View all awards & scholarships</a>
             </div>
           </li>
         </ul>
@@ -223,9 +296,8 @@
     <footer>
       <br> 
       <br>
-      <p>© 2025 Maria Pilligua. All rights reserved.</p>
-      <p>Last updated: July 2025</p>
-      <p>Template from <a href="https://afterjourney00.github.io/">Chengfeng Zhao</a>'s homepage.</p>
+      <p>© 2026 Maria Pilligua. All rights reserved.</p>
+      <p>Last updated: May 2026</p>
     </footer>
   </main>
 

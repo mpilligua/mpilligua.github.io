@@ -1,0 +1,10 @@
+# Wrangler build/cache
+.wrangler/
+node_modules/
+
+# NEVER commit these:
+.dev.vars
+.env
+.env.*
+*.key
+secrets.*

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous Navigation on a Physical Car - Maria Pilligua</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/bulma.min.css">
+  <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="icon" type="image/png" href="../images/android-chrome-512x512.png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="desktop-nav">
+        <a href="../index.html" class="nav-logo">Maria Pilligua</a>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="../projects.html" class="nav-link active">Projects</a></li>
+          <li class="nav-item"><a href="../courses.html" class="nav-link">Courses</a></li>
+          <li class="nav-item"><a href="../honors.html" class="nav-link">Scholarships & Honors</a></li>
+          <li class="nav-item"><a href="../cv.html" class="nav-link">CV</a></li>
+        </ul>
+      </div>
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="../index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="../projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="../courses.html">Courses <i class="fa fa-graduation-cap"></i></a></li>
+            <li><a href="../honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="../cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <article class="project-page">
+      <a href="../projects.html" class="project-page__back">← back to projects</a>
+
+      <header class="project-page__header">
+        <h1 class="project-page__title">Autonomous Navigation on a Physical Car</h1>
+        <p class="project-page__subtitle">A full self-driving stack on a real robot, built from scratch.</p>
+        <p class="project-page__authors">Joan Lafuente, <strong>Maria Pilligua</strong>, Xavi Soto</p>
+        <p class="project-page__venue">UAB · Autonomous Navigation course · 2025 · Final Grade 10/10</p>
+        <div class="project-page__links">
+          <a href="../static/reports/Autonomous_Navigation_Report.pdf" class="button is-normal is-rounded is-danger"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+        </div>
+      </header>
+
+      <figure class="project-page__figure">
+        <img src="../images/project-figures/autonav-hero.jpg" alt="The RC car with LiDAR and RGB camera on a taped circuit, next to a plastic bottle used as an obstacle">
+        <figcaption>The car: an RC chassis with a front-facing RGB camera (Orbbec) and a 2D LiDAR on top. The obstacle for the demo runs was a plastic bottle.</figcaption>
+      </figure>
+
+      <p>Autonomous driving from raw sensor data comes down to two questions: which sensors to trust, and how to combine them. For our Autonomous Navigation course we tackled both, on a real physical robot. We built a full self-driving pipeline (data collection, sensor fusion, training, deployment) around <strong>CIL v2</strong>, a vision-based end-to-end driving architecture with multi-view attention, and fed it <strong>multimodal input</strong>: an RGB camera at the front of the car, and a 2D LiDAR on top. We prototyped the model and evaluation loop in the CARLA simulator to iterate quickly, then moved the whole pipeline to the physical vehicle. There was no autopilot to bootstrap from and no synthetic sensors to fall back on, so every single training frame on the real car came from one of us physically driving it with a joystick, across several circuits, drivers, and lighting conditions. The data was the project.</p>
+
+      <p>The hardest thing to get right was obstacle avoidance. With only the front camera, we could not get the car to reliably come back to its lane after passing an obstacle. The reason turned out to be structural: from a forward-facing camera, the three phases of an overtake (see the obstacle, drive past it in the other lane, come back to your lane) look almost identical once the obstacle has left the field of view. From the model's perspective there is no visible difference between "still overtaking" and "already back", so it collapses to a shortcut and learns that driving in the middle of the road is fine, which then breaks normal lane-following whenever obstacle-avoidance data is mixed in. Adding LiDAR resolved the ambiguity: an obstacle right next to the car shows up as a persistent, distinctive circle in the 2D point cloud, giving the model a signal that survives the whole manoeuvre. The LiDAR-conditioned model overtook obstacles correctly and came back to its lane only once the circle disappeared.</p>
+
+      <figure class="project-page__figure">
+        <div class="autonav-video-row">
+          <div>
+            <video src="../images/project-figures/autonav-avoidance.mp4" autoplay loop muted playsinline></video>
+            <p class="col-label">Avoiding a small obstacle</p>
+          </div>
+          <div>
+            <video src="../images/project-figures/autonav-overtake.mp4" autoplay loop muted playsinline></video>
+            <p class="col-label">Stopping at a big obstacle</p>
+          </div>
+          <div>
+            <video src="../images/project-figures/autonav-lowlight.mp4" autoplay loop muted playsinline></video>
+            <p class="col-label">Driving in low light</p>
+          </div>
+        </div>
+        <figcaption>The trained model driving itself across three scenarios from the evaluation set.</figcaption>
+      </figure>
+    </article>
+  </main>
+
+  <script>
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+    if (menuTrigger && menuDropdown) {
+      menuTrigger.addEventListener('click', function(event) {
+        event.stopPropagation();
+        menuDropdown.classList.toggle('active');
+      });
+      window.addEventListener('click', function(event) {
+        if (menuDropdown.classList.contains('active')) {
+          menuDropdown.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+  <script src="../chat-widget.js"></script>
+</body>
+</html>

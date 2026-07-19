@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VQ-CoT: Discretising Latent Chain-of-Thought - Maria Pilligua</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/bulma.min.css">
+  <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="icon" type="image/png" href="../images/android-chrome-512x512.png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="desktop-nav">
+        <a href="../index.html" class="nav-logo">Maria Pilligua</a>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="../projects.html" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="../courses.html" class="nav-link active">Courses</a></li>
+          <li class="nav-item"><a href="../honors.html" class="nav-link">Scholarships & Honors</a></li>
+          <li class="nav-item"><a href="../cv.html" class="nav-link">CV</a></li>
+        </ul>
+      </div>
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="../index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="../projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="../courses.html">Courses <i class="fa fa-graduation-cap"></i></a></li>
+            <li><a href="../honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="../cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <article class="project-page">
+      <a href="../courses.html" class="project-page__back">← back to courses</a>
+
+      <header class="project-page__header">
+        <h1 class="project-page__title">VQ-CoT: Discretising Latent Chain-of-Thought</h1>
+        <p class="project-page__subtitle">Understanding what latent thoughts actually learn.</p>
+        <p class="project-page__authors"><strong>Maria Pilligua</strong>, Chengheng Li Chen, Nil Biescas, Pau Amargant</p>
+        <p class="project-page__venue">EPFL CS-552 Modern NLP · Spring 2026 · Final grade 6/6</p>
+        <div class="project-page__links">
+          <a href="../static/reports/CS_552_Report.pdf" class="button is-normal is-rounded is-danger"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+        </div>
+      </header>
+
+      <figure class="project-page__figure">
+        <img src="../images/project-figures/vqcot-cot-vs-coconut.png" alt="Chain-of-Thought vs Chain of Continuous Thought (Coconut)">
+        <figcaption>Classic chain-of-thought (left) vs latent chain-of-thought / Coconut (right).</figcaption>
+      </figure>
+
+      <p>Instead of spelling out every reasoning step as text tokens (left), latent chain-of-thought models like <strong>Coconut</strong> and <strong>CODI</strong> feed the LLM's own last hidden state back in as the next input embedding (right). The intermediate reasoning stays in a continuous space and is never emitted as text. The claim is that this gives richer, more efficient reasoning per step. Because the latents are opaque, that claim is rarely tested. We looked into it.</p>
+
+      <figure class="project-page__figure">
+        <img src="../images/project-figures/vqcot-teaser.png" alt="VQ-CoT: latent chain-of-thought quantised via a codebook">
+        <figcaption>Our probe: a VQ-VAE codebook inserted between the LLM's latent thoughts.</figcaption>
+      </figure>
+
+      <p>We push each latent thought through a VQ-VAE codebook before feeding it back to the LLM. If the model still answers correctly, the codebook entries tell us what content the latents actually carry. In parallel we probe the latents directly to see what they encode. The story is consistent: many of the latents are structured but content-free, and swapping or removing them barely changes the model's answer. The latent thoughts turn out to be a much thinner channel than the framing suggests.</p>
+
+      <p>The cause is the training objective. Both Coconut and CODI are supervised to reconstruct the original chain-of-thought text at the output, so the model has no choice but to route the answer through latents that preserve the surface form of natural-language reasoning, dataset delimiters included. The structure the latents carry is not a more efficient encoding of the problem; it is a compressed version of the written answer, artefacts and all. Latent chain-of-thought, as currently trained, is not learning to reason more efficiently, it is learning to compress natural language.</p>
+    </article>
+  </main>
+
+  <script>
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+    if (menuTrigger && menuDropdown) {
+      menuTrigger.addEventListener('click', function(event) {
+        event.stopPropagation();
+        menuDropdown.classList.toggle('active');
+      });
+      window.addEventListener('click', function(event) {
+        if (menuDropdown.classList.contains('active')) {
+          menuDropdown.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+  <script src="../chat-widget.js"></script>
+</body>
+</html>

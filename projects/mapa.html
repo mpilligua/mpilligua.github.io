@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAPA: Robot Guide Dog - Maria Pilligua</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/bulma.min.css">
+  <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="icon" type="image/png" href="../images/android-chrome-512x512.png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="desktop-nav">
+        <a href="../index.html" class="nav-logo">Maria Pilligua</a>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="../projects.html" class="nav-link active">Projects</a></li>
+          <li class="nav-item"><a href="../courses.html" class="nav-link">Courses</a></li>
+          <li class="nav-item"><a href="../honors.html" class="nav-link">Scholarships & Honors</a></li>
+          <li class="nav-item"><a href="../cv.html" class="nav-link">CV</a></li>
+        </ul>
+      </div>
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="../index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="../projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="../courses.html">Courses <i class="fa fa-graduation-cap"></i></a></li>
+            <li><a href="../honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="../cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <article class="project-page">
+      <a href="../projects.html" class="project-page__back">← back to projects</a>
+
+      <header class="project-page__header">
+        <h1 class="project-page__title">MAPA: A Quadruped Robot Guide Dog</h1>
+        <p class="project-page__subtitle">A multimodal agent that listens, sees the world, and walks a person through it.</p>
+        <p class="project-page__authors"><strong>Maria Pilligua</strong>, with the RoboHack team</p>
+        <p class="project-page__venue">RoboHack EPFL 2026 · 3rd Place</p>
+        <div class="project-page__links">
+          <a href="https://devpost.com/software/mapa-lh29cx" class="button is-normal is-rounded is-info"><i class="fa fa-globe"></i>&nbsp;Devpost</a>
+          <a href="https://github.com/mpilligua/RoboHack-2026/tree/submission" class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
+        </div>
+      </header>
+
+      <p>MAPA is a robot guide dog for people who are blind or visually impaired. The idea is simple: a lot of the day-to-day struggle for someone without vision is not "getting somewhere" in the abstract, it's the specifics. Where is the door. Is the chair still there. How do I get to the coffee machine without asking a stranger. Guide dogs solve some of that, but they cost tens of thousands of euros to train, there are waiting lists that run for years, and they can't tell you what they are seeing. We wanted to build something that a person could just talk to, that would understand the space around it, and walk them through it.</p>
+
+      <figure class="project-page__figure">
+        <video src="../images/project-figures/mapa-demo.mp4" autoplay loop muted playsinline style="width:100%; border-radius: 4px;"></video>
+        <figcaption>The robot walking a teammate around the EPFL campus during the demo.</figcaption>
+      </figure>
+
+      <p>You use it from your phone. You say what you want ("take me to the coffee machine", "is the path clear?", "is there a chair in front of me?") and the robot answers back out loud and starts walking. It looks at the world through its own cameras, understands what it is seeing, keeps track of where it is inside the building, and picks a path around whatever is in the way (people, chairs, doors, other robots, us). It narrates what it is doing as it goes, so the person walking with it is never in the dark about what is about to happen. All of that runs on real hardware, on a Unitree quadruped, live.</p>
+
+      <p>Under the hood, MAPA is one agent that ties everything together. It takes in the camera and LiDAR feeds to understand what is around it, runs a visual LLM to actually reason about what it is seeing, and uses SLAM to know where it is inside the space. Then a language model does the planning: given what the user asked for and what the robot is looking at, it decides the next thing to do and which tool to call for it. Locomotion, obstacle avoidance, and speech all sit on top of that plan.</p>
+
+      <p>We built the whole thing in one weekend at RoboHack EPFL and it took 3rd place.</p>
+
+      <figure class="project-page__figure">
+        <img src="../images/project-figures/mapa-hero.jpg" alt="With the quadruped at RoboHack EPFL after the demo" style="max-width: 500px; margin: 0 auto; display: block;">
+        <figcaption>With the Unitree Lite3 after the demo, at RoboHack EPFL.</figcaption>
+      </figure>
+    </article>
+  </main>
+
+  <script>
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+    if (menuTrigger && menuDropdown) {
+      menuTrigger.addEventListener('click', function(event) {
+        event.stopPropagation();
+        menuDropdown.classList.toggle('active');
+      });
+      window.addEventListener('click', function(event) {
+        if (menuDropdown.classList.contains('active')) {
+          menuDropdown.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+  <script src="../chat-widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+name = "ask-maria"
+main = "src/index.js"
+compatibility_date = "2025-06-01"
+
+# The Gemini API key is set as a secret, NOT here.
+# Run once after `wrangler login`:
+#   wrangler secret put GEMINI_API_KEY
+# and paste the key when prompted.

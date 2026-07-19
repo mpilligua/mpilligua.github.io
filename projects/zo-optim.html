@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>No Gradients, No Problem? - Maria Pilligua</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/bulma.min.css">
+  <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="icon" type="image/png" href="../images/android-chrome-512x512.png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="desktop-nav">
+        <a href="../index.html" class="nav-logo">Maria Pilligua</a>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="../projects.html" class="nav-link">Projects</a></li>
+          <li class="nav-item"><a href="../courses.html" class="nav-link active">Courses</a></li>
+          <li class="nav-item"><a href="../honors.html" class="nav-link">Scholarships & Honors</a></li>
+          <li class="nav-item"><a href="../cv.html" class="nav-link">CV</a></li>
+        </ul>
+      </div>
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="../index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="../projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="../courses.html">Courses <i class="fa fa-graduation-cap"></i></a></li>
+            <li><a href="../honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="../cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <article class="project-page">
+      <a href="../courses.html" class="project-page__back">← back to courses</a>
+
+      <header class="project-page__header">
+        <h1 class="project-page__title">No Gradients, No Problem?</h1>
+        <p class="project-page__subtitle">A Comparative Study of Zeroth-Order Optimizers for Memory-Efficient LLM Fine-Tuning</p>
+        <p class="project-page__authors"><strong>Maria Pilligua</strong>, Nil Biescas, Chengheng Li Chen</p>
+        <p class="project-page__venue">EPFL CS-439 Optimization for Machine Learning · Spring 2026 · Final grade 6/6</p>
+        <div class="project-page__links">
+          <a href="../static/reports/CS_439_Report.pdf" class="button is-normal is-rounded is-danger"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+          <a href="https://github.com/mpilligua/NoGradients-NoProblem" class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
+        </div>
+      </header>
+
+      <figure class="project-page__figure">
+        <img src="../images/project-figures/zo-objectives.png" alt="Training objectives comparison">
+        <figcaption>Best logit accuracy on MultiRC (Qwen3.5) when each method is trained on cross-entropy, token accuracy, or logit accuracy directly. Cross-entropy wins for almost every method; only Sparse-MeZO holds up across all three.</figcaption>
+      </figure>
+
+      <p>Fine-tuning LLMs with Adam is memory-hungry because backpropagation stores activations and a gradient for every parameter. Zeroth-order (ZO) optimizers avoid that by estimating the gradient from forward passes alone, keeping memory close to inference. Many ZO variants have appeared recently, but each paper reports on a different model, dataset, and budget, which makes them hard to compare.</p>
+
+      <p>We put ten ZO optimizers and an AdamW baseline behind a single training harness, fine-tuning Qwen2.5-0.5B and Qwen3.5-0.8B on two SuperGLUE tasks. Only the optimizer changed between runs. Sparse-MeZO came out on top, five points below AdamW at about a third of the memory, and it was the only ZO method that clearly improved when we moved to the larger backbone. Most of the recent variants did not beat plain MeZO in our setup. We also tested a property unique to ZO, training on non-differentiable accuracy directly instead of on cross-entropy, and found the cross-entropy surrogate still wins for almost every method.</p>
+    </article>
+  </main>
+
+  <script>
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+    if (menuTrigger && menuDropdown) {
+      menuTrigger.addEventListener('click', function(event) {
+        event.stopPropagation();
+        menuDropdown.classList.toggle('active');
+      });
+      window.addEventListener('click', function(event) {
+        if (menuDropdown.classList.contains('active')) {
+          menuDropdown.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+  <script src="../chat-widget.js"></script>
+</body>
+</html>

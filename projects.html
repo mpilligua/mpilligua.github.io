@@ -20,6 +20,7 @@
           <ul class="nav-menu">
             <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
             <li class="nav-item"><a href="projects.html" class="nav-link active">Projects</a></li>
+            <li class="nav-item"><a href="courses.html" class="nav-link">Courses</a></li>
             <li class="nav-item"><a href="honors.html" class="nav-link">Scholarships & Honors</a></li>
             <li class="nav-item"><a href="cv.html" class="nav-link">CV</a></li>
           </ul>
@@ -34,6 +35,7 @@
           <ul>
             <li><a href="index.html">Home <i class="fa fa-home"></i></a></li>
             <li><a href="projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="courses.html">Courses <i class="fa fa-graduation-cap"></i></a></li>
             <li><a href="honors.html">Honors <i class="fa fa-trophy"></i></a></li>
             <li><a href="cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
           </ul>
@@ -46,64 +48,177 @@
     <section id="all-projects">
       <h1 class="page-title">Projects</h1>
 
-      <article class="project-grid">
+      <div class="filter-bar" role="tablist" aria-label="Filter projects">
+        <button class="filter-chip filter-chip--active" data-filter="all" role="tab" aria-selected="true">All</button>
+        <button class="filter-chip" data-filter="published" role="tab" aria-selected="false">Published only</button>
+        <button class="filter-chip" data-filter="cv" role="tab" aria-selected="false">Computer Vision</button>
+        <button class="filter-chip" data-filter="3d" role="tab" aria-selected="false">3D</button>
+        <button class="filter-chip" data-filter="generative" role="tab" aria-selected="false">Generative AI</button>
+        <button class="filter-chip" data-filter="nlp llm" role="tab" aria-selected="false">NLP/LLMs</button>
+        <button class="filter-chip" data-filter="imaging" role="tab" aria-selected="false">Image Restoration</button>
+        <button class="filter-chip" data-filter="video" role="tab" aria-selected="false">Video</button>
+        <button class="filter-chip" data-filter="autonav" role="tab" aria-selected="false">Autonomous Navigation</button>
+        <button class="filter-chip" data-filter="robotics" role="tab" aria-selected="false">Robotics</button>
+      </div>
+
+      <div class="sort-bar" aria-label="Sort projects">
+        <span class="sort-bar__label">Sort by</span>
+        <button class="filter-chip filter-chip--active" data-sort="relevance">Relevance</button>
+        <button class="filter-chip" data-sort="recency">Recency</button>
+      </div>
+
+      <article class="project-grid" data-published="false" data-topics="cv 3d" data-year="2026" data-relevance="65">
+        <div class="project__image">
+          <img src='images/project-figures/sparse-vggt-concept.png' alt="Full vs sparse global attention">
+        </div>
+        <div class="project__info">
+          <a href="projects/sparse-vggt.html" class="project__title-link"><p class="project__title">(Full) Attention is More Than You Need: Sparse Cross-View Attention in VGGT <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, supervised by Aoxiang Fan, <a href="https://people.epfl.ch/pascal.fua">Pascal Fua</a></p>
+          <p class="project__conference project__conference--highlight">Semester Project · EPFL CVLab (2026)</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">Replaced VGGT's dense global cross-view attention with a learned sparse index over patch correspondences: 32x faster than dense FlashAttention at 96 frames, and gains +5 pose AUC@30 on ScanNet. A contrastive InfoNCE loss teaches the backbone to build its own sparse index at inference, with no geometry.</p>
+          <div class="project__links">
+            <a href="projects/sparse-vggt.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="static/reports/Semester_Project_Report.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+            <a href="static/reports/Sparse_VGGT_Slides.pdf" class="button is-normal is-rounded is-purple is-small"><i class="fa fa-file-powerpoint-o"></i>&nbsp;Slides</a>
+            <a class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code (soon)</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="false" data-topics="cv generative 3d video" data-year="2026" data-relevance="100">
         <div class="project__image">
           <video src="images/t2m_teaser.mp4" autoplay loop muted playsinline style="width:100%; border-radius: 4px;"></video>
         </div>
         <div class="project__info">
           <a href="https://mpilligua.github.io/C-T2M.github.io/index.html" class="project__title-link"><p class="project__title">Controllable Autoregressive Text-to-Motion Generation <sup>🔗</sup></p></a>
           <p class="project__authors"><strong>Maria Pilligua</strong>, Pau Amargant, Miquel Lopez, Nahush Rajesh Kolhe</p>
-          <p class="project__conference">EPFL CS-503 (in progress)</p>
-          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">A real-time text-to-motion model where the user can steer generation mid-sequence: at any frame, specify a full-body pose, hand or foot position, or a path the character must follow. Built on T2M-GPT with a VQ-VAE motion codebook and an 18-layer causal Transformer, trained on the BONES dataset (64k motion-capture sequences). Two constraint-injection architectures explored: a ControlNet-style cross-attention adapter and a prefix-token approach with custom causal masking. Aimed at the kind of online controllability that animation and interactive systems need.</p>
+          <p class="project__conference">EPFL CS-503 · Final Grade 5.75/6</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">A real-time text-to-motion model where the user can steer generation mid-sequence: at any frame, specify a full-body pose, hand or foot position, or a path the character must follow. Built on T2M-GPT with a VQ-VAE motion codebook and an 18-layer causal Transformer, trained on the BONES dataset. Two constraint-injection architectures explored: ControlNet-style cross-attention adapter and prefix-token with custom causal masking.</p>
           <div class="project__links">
             <a href="https://mpilligua.github.io/C-T2M.github.io/index.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
-            <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Report (contact me)</a>
-            <a class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
+            <a href="https://github.com/mpilligua/CAR-T2M" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
           </div>
         </div>
       </article>
 
-      <article class="project-grid">
+      <article class="project-grid" data-published="false" data-topics="nlp llm" data-year="2026" data-relevance="45">
+        <div class="project__image"><img src='images/project-figures/vqcot-teaser.png' alt="VQ-CoT: latent chain-of-thought quantised via VQ-VAE"></div>
+        <div class="project__info">
+          <a href="projects/vq-cot.html" class="project__title-link"><p class="project__title">VQ-CoT: Discretising Latent Chain-of-Thought <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, Chengheng Li Chen, Nil Biescas, Pau Amargant</p>
+          <p class="project__conference">EPFL CS-552 Modern NLP · Final Grade 6/6</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">Probed whether latent chain-of-thought models (Coconut, CODI) genuinely reason. Discretised their thought vectors with VQ-VAE and FSQ, then dissected the latents with logit lenses, ablations, and content swaps. CODI's separator latents are content-free placeholders (a 3-latent student matches the 6-latent teacher), and Qwen3 backbones up to 4B write structured latents they never actually read at inference.</p>
+          <div class="project__links">
+            <a href="projects/vq-cot.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="static/reports/CS_552_Report.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="false" data-topics="nlp llm" data-year="2026" data-relevance="40">
+        <div class="project__image"><img src='images/project-figures/zo-objectives.png' alt="ZO-Optim training objectives"></div>
+        <div class="project__info">
+          <a href="projects/zo-optim.html" class="project__title-link"><p class="project__title">No Gradients, No Problem? A Comparative Study of Zeroth-Order Optimizers <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, Nil Biescas, Chengheng Li Chen</p>
+          <p class="project__conference">EPFL CS-439 Optimization for ML · Final Grade 6/6</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">Controlled comparison of 10 zeroth-order optimizers and an AdamW baseline on the same harness, fine-tuning Qwen2.5 and Qwen3.5 on SuperGLUE. Sparse-MeZO was the strongest ZO method, 5 points below AdamW at 1/3 memory, and the only one that improved with model scale. Cross-entropy still beat training on non-differentiable accuracy for almost every method.</p>
+          <div class="project__links">
+            <a href="projects/zo-optim.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="static/reports/CS_439_Report.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+            <a href="https://github.com/mpilligua/NoGradients-NoProblem" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="false" data-topics="cv autonav video robotics" data-year="2025" data-relevance="50">
+        <div class="project__image"><img src='images/project-figures/autonav-hero.jpg' alt="RC car with LiDAR and camera on a taped circuit"></div>
+        <div class="project__info">
+          <a href="projects/autonomous-navigation.html" class="project__title-link"><p class="project__title">Autonomous Navigation on a Physical Car <sup>🔗</sup></p></a>
+          <p class="project__authors">Joan Lafuente, <strong>Maria Pilligua</strong>, Xavi Soto</p>
+          <p class="project__conference">UAB Autonomous Navigation course · 2025 · Final Grade 10/10</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">End-to-end imitation-learning pipeline on a small physical RC car with an RGB camera and a 2D LiDAR. We drove the car around taped-up circuits with a joystick to collect the dataset, then trained a CIL++ model to predict steering and throttle from the sensors. LiDAR turned out to be the key ingredient for obstacle avoidance: the front camera alone cannot tell that the car is still in the middle of a passing manoeuvre once the obstacle leaves the frame.</p>
+          <div class="project__links">
+            <a href="projects/autonomous-navigation.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="static/reports/Autonomous_Navigation_Report.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="false" data-topics="cv autonav llm robotics" data-year="2026" data-relevance="47">
+        <div class="project__image">
+          <video src="images/project-figures/mapa-demo.mp4" autoplay loop muted playsinline style="width:100%; border-radius: 4px;"></video>
+        </div>
+        <div class="project__info">
+          <a href="projects/mapa.html" class="project__title-link"><p class="project__title">MAPA: A Quadruped Robot Guide Dog <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, with the RoboHack team</p>
+          <p class="project__conference project__conference--highlight">RoboHack EPFL 2026 · 3rd Place</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">Guide-dog agent on a Unitree quadruped, built in one weekend. A tool-using agent hears app-based voice requests, uses Claude as a VLM for scene understanding, YOLO for detection and tracking, and SLAM for live mapping and localisation, then physically walks the user to their destination while avoiding obstacles and narrating what it is doing.</p>
+          <div class="project__links">
+            <a href="projects/mapa.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="https://devpost.com/software/mapa-lh29cx" class="button is-normal is-rounded is-purple is-small"><i class="fa fa-external-link"></i>&nbsp;Devpost</a>
+            <a href="https://github.com/mpilligua/RoboHack-2026/tree/submission" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="false" data-topics="cv 3d" data-year="2025" data-relevance="55">
+        <div class="project__image"><img src='images/project-figures/point2weight-teaser.png' alt="Point2Weight HyperNetwork architecture"></div>
+        <div class="project__info">
+          <a href="projects/point2weight.html" class="project__title-link"><p class="project__title">Point2Weight: HyperNetwork-Driven Implicit Function Estimation from Point Clouds <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, Júlia Garcia, Joan Lafuente</p>
+          <p class="project__conference">UAB 3D Vision course · 2025 · Final Grade 10/10</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">3D surface reconstruction from noisy point clouds via implicit functions. A PointNet embedding of the point cloud conditions a HyperNetwork that predicts, per object, both the weights of an MLP-based signed-distance decoder and the parameters of a multi-resolution hash grid used as positional encoding. Trained on the ABC dataset, it generalises to unseen and incomplete shapes better than classical Poisson Surface Reconstruction and DL baselines like Points2Surf.</p>
+          <div class="project__links">
+            <a href="projects/point2weight.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="static/reports/Point2Weight_Report.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="false" data-topics="cv 3d generative" data-year="2025" data-relevance="60">
         <div class="project__image"><img src='images/relighting.gif' alt="Relighting Demo"></div>
         <div class="project__info">
-          <a href="#" class="project__title-link"><p class="project__title">Towards Controllable Image Relighting <sup>🔗</sup></p></a>
-          <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
-          <p class="project__conference">Bachelor's dissertation 2025</p>
+          <a href="projects/relighting.html" class="project__title-link"><p class="project__title">Towards Controllable Image Relighting <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, supervised by <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
+          <p class="project__conference">Bachelor's Thesis · UAB · 2025 · Final Grade 10/10 with honors</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">Comparative study of methods for controllable image relighting, across two very different architectures. On the diffusion side, tested Concept Sliders (LoRA), IP-Adapter, and a custom ControlNet trained on RGBX-extracted albedos on top of Stable Diffusion. On the transformer side, adapted DAT and Restormer to consume lighting parameters via PromptIR-style prompt injection into cross-attention. Restormer + light-prompt won: 28.66 PSNR / 0.785 SSIM averaged over all lighting-pair transitions, and generalises to out-of-domain iPhone photos. Built the paired RSR dataset (9-light rig) used for training.</p>
           <div class="project__links">
-            <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;ArXiv (contact me)</a>
+            <a href="projects/relighting.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="static/reports/Relighting_TFG_Report.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+            <a href="static/reports/Relighting_Slides.pdf" class="button is-normal is-rounded is-purple is-small"><i class="fa fa-file-powerpoint-o"></i>&nbsp;Slides</a>
           </div>
         </div>
       </article>
 
-      <article class="project-grid">
+      <article class="project-grid" data-published="true" data-topics="cv generative video" data-year="2025" data-relevance="95">
         <div class="project__image"><img src='images/edits.gif' alt="HyperNVD Demo"></div>
         <div class="project__info">
           <a href="https://hypernvd.github.io" class="project__title-link"><p class="project__title">HyperNVD: Accelerating Neural Video Decomposition via Hypernetworks. <sup>🔗</sup></p></a>
           <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="https://scholar.google.com/citations?user=gtHrYbUAAAAJ&hl=en">Danna Xue</a>, <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
           <p class="project__conference project__conference--highlight">CVPR 2025</p>
           <div class="project__links">
-            <a href="https://hypernvd.github.io" class="button is-normal is-rounded is-info"><i class="fa fa-globe"></i>&nbsp;Project Page</a>
-            <a href="https://arxiv.org/abs/2503.17276" class="button is-normal is-rounded is-danger"><i class="ai ai-arxiv"></i>&nbsp;ArXiv</a>
-            <a href="https://github.com/HyperNVD/HyperNVD" class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
+            <a href="https://hypernvd.github.io" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="https://arxiv.org/abs/2503.17276" class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Paper</a>
+            <a href="https://github.com/HyperNVD/HyperNVD" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
           </div>
         </div>
       </article>
 
-      <article class="project-grid">
+      <article class="project-grid" data-published="true" data-topics="cv continual-learning" data-year="2025" data-relevance="85">
         <div class="project__image"><img src='images/PAH_arch.png' alt="PAH Architecture"></div>
         <div class="project__info">
           <a href="https://pah2025.github.io/" class="project__title-link"><p class="project__title">PAH: Prototype Augmented Hypernetworks <sup>🔗</sup></p></a>
           <p class="project__authors"><a href="">Neil De La Fuente</a>, <strong>Maria Pilligua</strong>, <a href="">Daniel Vidal</a>, <a href="">Alvin Soutif</a>, <a href="">Andrey Barskey</a></p>
           <p class="project__conference project__conference--highlight">Workshop CVPR 2025</p>
           <div class="project__links">
-            <a href="https://pah2025.github.io/" class="button is-normal is-rounded is-info"><i class="fa fa-globe"></i>&nbsp;Project Page</a>
-            <a href="https://arxiv.org/abs/2505.07450" class="button is-normal is-rounded is-danger"><i class="ai ai-arxiv"></i>&nbsp;ArXiv</a>
-            <a href="https://github.com/pah2025/PAH" class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
+            <a href="https://pah2025.github.io/" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="https://arxiv.org/abs/2505.07450" class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Paper</a>
+            <a href="https://github.com/pah2025/PAH" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
           </div>
         </div>
       </article>
 
-      <article class="project-grid">
+      <article class="project-grid" data-published="true" data-topics="cv imaging" data-year="2025" data-relevance="80">
         <div class="project__image">
           <div class="image-hover-wrapper">
             <img src="images/prompt1.png" class="default-image" alt="Default image">
@@ -115,36 +230,52 @@
           <p class="project__authors"><a href="">David Serrano-Lozano</a>, <a href="">Francisco A. Molina Bakhos</a>, <a href="">Danna Xue</a>, <a href="">Yixiong Yang</a>, <strong>Maria Pilligua</strong>, <a href="">Ramon Baldrich</a>, <a href="">Maria Vanrell</a>, <a href="">Javier Vazquez-Corral</a></p>
           <p class="project__conference project__conference--highlight">Workshop CVPR 2025</p>
           <div class="project__links">
-            <a href="https://davidserra9.github.io/promptnorm/" class="button is-normal is-rounded is-info"><i class="fa fa-globe"></i>&nbsp;Project Page</a>
-            <a href="https://openaccess.thecvf.com/content/CVPR2025W/NTIRE/papers/Serrano-Lozano_PromptNorm_Image_Geometry_Guides_Ambient_Light_Normalization_CVPRW_2025_paper.pdf" class="button is-normal is-rounded is-danger"><i class="fa fa-file-pdf-o"></i>&nbsp;Paper</a>
-            <a href="https://github.com/davidserra9/promptnorm" class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
+            <a href="https://davidserra9.github.io/promptnorm/" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="https://openaccess.thecvf.com/content/CVPR2025W/NTIRE/papers/Serrano-Lozano_PromptNorm_Image_Geometry_Guides_Ambient_Light_Normalization_CVPRW_2025_paper.pdf" class="button is-normal is-rounded is-danger is-small"><i class="fa fa-file-pdf-o"></i>&nbsp;Paper</a>
+            <a href="https://github.com/davidserra9/promptnorm" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
           </div>
         </div>
       </article>
 
-      <article class="project-grid">
+      <article class="project-grid" data-published="true" data-topics="cv documents" data-year="2024" data-relevance="75">
         <div class="project__image"><img src='images/layeredDoc.gif' alt="LayeredDoc Demo"></div>
         <div class="project__info">
           <a href="https://layereddoc.github.io/" class="project__title-link"><p class="project__title">LayeredDoc: Domain Adaptive Document Restoration with a Layer Separation Approach. <sup>🔗</sup></p></a>
           <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="https://scholar.google.com/citations?user=gtHrYbUAAAAJ&hl=en">Nil Biescas</a>, <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a>, <a href="https://scholar.google.es/citations?user=92pWl-AAAAAJ&hl=es">Josep Lladós</a>, <a href="https://scholar.google.es/citations?user=ChmX8ogAAAAJ&hl=en">Ernest Valveny</a>, <a href="https://scholar.google.co.in/citations?user=J-VlCNYAAAAJ&hl=en">Sanket Biswas</a></p>
           <p class="project__conference project__conference--highlight">ECCV WiCV 2024, ICDAR 2024</p>
           <div class="project__links">
-            <a href="https://layereddoc.github.io/" class="button is-normal is-rounded is-info"><i class="fa fa-globe"></i>&nbsp;Project Page</a>
-            <a href="https://arxiv.org/abs/2406.08610" class="button is-normal is-rounded is-danger"><i class="ai ai-arxiv"></i>&nbsp;ArXiv</a>
-            <a href="https://github.com/mpilligua/LayeredDoc" class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
-            <a href="https://github.com/layeredDoc/LayeredDoc.github.io/blob/main/static/images/Poster-ECCV2024.png" class="button is-normal is-rounded is-success"><i class="fa fa-picture-o"></i>&nbsp;Poster</a>
-            <a class="button is-normal is-rounded is-warning" onclick="toggleBib('imhoi_bib')"><i class="fa fa-book"></i>&nbsp;BibTex</a>
+            <a href="https://layereddoc.github.io/" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="https://arxiv.org/abs/2406.08610" class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Paper</a>
+            <a href="https://github.com/mpilligua/LayeredDoc" class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
+            <a href="https://github.com/layeredDoc/LayeredDoc.github.io/blob/main/static/images/Poster-ECCV2024.png" class="button is-normal is-rounded is-success is-small"><i class="fa fa-picture-o"></i>&nbsp;Poster</a>
+            <a class="button is-normal is-rounded is-warning is-small" onclick="toggleBib('imhoi_bib')"><i class="fa fa-book"></i>&nbsp;BibTex</a>
           </div>
           <div id='imhoi_bib' class="bibtex" hidden><pre><code>@misc{pilligua2024layereddoc,
-  title={LayeredDoc: ...}, 
+  title={LayeredDoc: ...},
   author={Maria Pilligua and ...},
   year={2024},
   ...
 }</code></pre></div>
         </div>
       </article>
-      
-      <article class="project-grid">
+
+      <article class="project-grid" data-published="false" data-topics="cv generative" data-year="2025" data-relevance="70">
+        <div class="project__image">
+          <img src='images/project-figures/goodnotes-svg-comparison.png' alt="Text-to-SVG comparison: previous LLM-SVG output (broken) vs my diffusion pipeline (GoodNotes doodle style)">
+        </div>
+        <div class="project__info">
+          <a href="projects/text-to-svg.html" class="project__title-link"><p class="project__title">Text-to-SVG for GoodNotes <sup>🔗</sup></p></a>
+          <p class="project__authors"><strong>Maria Pilligua</strong>, with the GoodNotes ML team</p>
+          <p class="project__conference project__conference--highlight">GoodNotes ML Internship · London · 2025 · Shipped to millions</p>
+          <p style="margin-top: 6px; font-size: 0.95em; color: #555;">GoodNotes' previous pipeline asked an LLM to write SVG code directly and broke on anything geometric, LLMs are not spatial reasoners. I proposed reframing the task as computer vision: draw the picture with an image-diffusion model, then vectorize. Designed and built the full stack (prompt rewriting, diffusion generation, style-alignment on GoodNotes' doodle aesthetic, filtering + ranking, vectorizer, conversion to native editable objects). Prototyped 10+ variants. Latency dropped from ~40s to ~7s at much higher quality; adopted and shipped.</p>
+          <div class="project__links">
+            <a href="projects/text-to-svg.html" class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
+            <a href="https://www.goodnotes.com/ai" class="button is-normal is-rounded is-purple is-small"><i class="fa fa-external-link"></i>&nbsp;GoodNotes AI</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="project-grid" data-published="true" data-topics="cv imaging" data-year="2026" data-relevance="90">
         <div class="project__image">
           <div class="image-hover-wrapper">
             <img src="images/low.png" class="default-image" alt="Lowlight Original">
@@ -157,21 +288,8 @@
           <p class="project__conference project__conference--highlight">CVPR Findings 2026</p>
           <div class="project__links">
             <a class="button is-normal is-rounded is-info is-small"><i class="fa fa-globe"></i>&nbsp;Page</a>
-            <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;ArXiv</a>
-            <a class="button is-normal is-rounded is-dark"><i class="fa fa-github"></i>&nbsp;Code</a>
-          </div>
-        </div>
-      </article>
-
-      <article class="project-grid">
-        <div class="project__image"><img src='images/DD.gif' alt="AI Document Digitalization Demo"></div>
-        <div class="project__info">
-          <a href="https://mpilligua.github.io/Document-Digitallization.github.io/" class="project__title-link"><p class="project__title">AI Document Digitalization <sup>🔗</sup></p></a>
-          <p class="project__authors"><strong>Maria Pilligua</strong>, <a href="">Nil Biescas</a>, <a href="">Xavi Soto</a>, <a href="">Laia Vilardell</a>, <a href="">Jordi Longaron</a></p>
-          <p class="project__conference">Class Project</p>
-          <div class="project__links">
-            <a href="https://mpilligua.github.io/Document-Digitallization.github.io/" class="button is-normal is-rounded is-info"><i class="fa fa-globe"></i>&nbsp;Project Page</a>
-            <a class="button is-normal is-rounded is-dark is-light"><i class="fa fa-github"></i>&nbsp;Code (soon!)</a>
+            <a class="button is-normal is-rounded is-danger is-small"><i class="ai ai-arxiv"></i>&nbsp;Paper</a>
+            <a class="button is-normal is-rounded is-dark is-small"><i class="fa fa-github"></i>&nbsp;Code</a>
           </div>
         </div>
       </article>
@@ -180,6 +298,83 @@
   </main>
  
   <script>
+    // Filter bar: multi-select.
+    // - "All" clears everything (shown as active when no other filter is on).
+    // - "Published only" is a status filter combined with topic filters via AND.
+    // - Topic chips combine via OR among themselves.
+    (function () {
+      const chips = document.querySelectorAll('.filter-chip[data-filter]');
+      const cards = document.querySelectorAll('#all-projects .project-grid');
+      const active = new Set(); // active filters, excluding 'all'
+
+      function apply() {
+        const none = active.size === 0;
+        chips.forEach(c => {
+          const f = c.dataset.filter;
+          const isOn = (f === 'all' && none) || (f !== 'all' && active.has(f));
+          c.classList.toggle('filter-chip--active', isOn);
+          c.setAttribute('aria-selected', isOn ? 'true' : 'false');
+        });
+        const publishedOn = active.has('published');
+        const topics = [...active].filter(f => f !== 'published');
+        cards.forEach(card => {
+          let show = true;
+          if (publishedOn && card.dataset.published !== 'true') show = false;
+          if (topics.length > 0) {
+            const cardTopics = (card.dataset.topics || '').split(/\s+/).filter(Boolean);
+            if (!topics.every(t => t.split(/\s+/).some(tok => cardTopics.includes(tok)))) show = false;
+          }
+          card.style.display = show ? '' : 'none';
+        });
+      }
+
+      chips.forEach(chip => chip.addEventListener('click', () => {
+        const f = chip.dataset.filter;
+        if (f === 'all') {
+          active.clear();
+        } else if (active.has(f)) {
+          active.delete(f);
+        } else {
+          active.add(f);
+        }
+        apply();
+      }));
+    })();
+
+    // Sort bar: Relevance / Recency
+    (function () {
+      const sortChips = document.querySelectorAll('[data-sort]');
+      const container = document.querySelector('#all-projects');
+      let mode = 'relevance';
+
+      function sortCards() {
+        const cards = Array.from(container.querySelectorAll('.project-grid'));
+        cards.sort((a, b) => {
+          if (mode === 'recency') {
+            const dy = (parseInt(b.dataset.year) || 0) - (parseInt(a.dataset.year) || 0);
+            if (dy !== 0) return dy;
+            return (parseInt(b.dataset.relevance) || 0) - (parseInt(a.dataset.relevance) || 0);
+          }
+          return (parseInt(b.dataset.relevance) || 0) - (parseInt(a.dataset.relevance) || 0);
+        });
+        cards.forEach(c => container.appendChild(c));
+      }
+
+      sortChips.forEach(chip => chip.addEventListener('click', () => {
+        sortChips.forEach(c => {
+          c.classList.remove('filter-chip--active');
+          c.setAttribute('aria-selected', 'false');
+        });
+        chip.classList.add('filter-chip--active');
+        chip.setAttribute('aria-selected', 'true');
+        mode = chip.dataset.sort;
+        sortCards();
+      }));
+
+      // Apply initial sort (data-relevance) at load so the DOM order matches the source of truth.
+      sortCards();
+    })();
+
     function toggleBib(id) {
       var element = document.getElementById(id);
       if (element) {
@@ -206,5 +401,6 @@
     });
   </script>
 
+  <script src="chat-widget.js"></script>
 </body>
 </html>

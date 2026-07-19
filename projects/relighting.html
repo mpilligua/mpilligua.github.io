@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Towards Controllable Relighting - Maria Pilligua</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.rawgit.com/jpswalsh/academicons/master/css/academicons.min.css">
+  <link rel="stylesheet" href="../static/bulma.min.css">
+  <link href="https://fonts.cdnfonts.com/css/optima" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../style.css">
+  <link rel="icon" type="image/png" href="../images/android-chrome-512x512.png">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-container">
+      <div class="desktop-nav">
+        <a href="../index.html" class="nav-logo">Maria Pilligua</a>
+        <ul class="nav-menu">
+          <li class="nav-item"><a href="../index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="../projects.html" class="nav-link active">Projects</a></li>
+          <li class="nav-item"><a href="../courses.html" class="nav-link">Courses</a></li>
+          <li class="nav-item"><a href="../honors.html" class="nav-link">Scholarships & Honors</a></li>
+          <li class="nav-item"><a href="../cv.html" class="nav-link">CV</a></li>
+        </ul>
+      </div>
+      <div class="mobile-nav">
+        <button class="menu-toggle-btn" id="mobile-menu-trigger" aria-label="Open navigation menu">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div class="apple-menu" id="apple-menu-dropdown">
+          <ul>
+            <li><a href="../index.html">Home <i class="fa fa-home"></i></a></li>
+            <li><a href="../projects.html">Projects <i class="fa fa-flask"></i></a></li>
+            <li><a href="../courses.html">Courses <i class="fa fa-graduation-cap"></i></a></li>
+            <li><a href="../honors.html">Honors <i class="fa fa-trophy"></i></a></li>
+            <li><a href="../cv.html">CV <i class="fa fa-file-text-o"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <article class="project-page">
+      <a href="../projects.html" class="project-page__back">← back to projects</a>
+
+      <header class="project-page__header">
+        <h1 class="project-page__title">Towards Controllable Relighting</h1>
+        <p class="project-page__subtitle">A study of methods for controllable image relighting, across diffusion and transformer architectures.</p>
+        <p class="project-page__authors"><strong>Maria Pilligua</strong>, supervised by <a href="https://www.jvazquez-corral.net/">Javier Vazquez-Corral</a></p>
+        <p class="project-page__venue">Bachelor's Thesis · UAB · 2025 · Final Grade 10/10 with honors</p>
+        <div class="project-page__links">
+          <a href="../static/reports/Relighting_TFG_Report.pdf" class="button is-normal is-rounded is-danger"><i class="fa fa-file-pdf-o"></i>&nbsp;Report</a>
+          <a href="../static/reports/Relighting_Slides.pdf" class="button is-normal is-rounded is-purple"><i class="fa fa-file-powerpoint-o"></i>&nbsp;Slides</a>
+        </div>
+      </header>
+
+      <p>Relighting is the problem of changing how a photo is lit while leaving everything else alone: same subject, same pose, same camera, only the light moves. My bachelor thesis is a comparative study of how to do it, spanning two very different architecture families. On the diffusion side I steered a frozen Stable Diffusion with Concept Sliders (LoRA), IP-Adapter with numeric light conditioning, and a ControlNet I trained myself on albedo maps extracted from Laion-Aesthetic with Adobe's RGBX. On the transformer side I tested image-to-image restoration backbones (DAT and Restormer) that don't hallucinate content and are much closer to what "edit this photo" actually asks for.</p>
+
+      <p>The winner was <strong>Restormer with a PromptIR-style light prompt injected into the cross-attention</strong>: pan and tilt go through a small MLP into a light embedding, dynamically re-weighted, and fed into Restormer's cross-attention modules at every layer. Trained on RSR, a 5k-image paired dataset I built with a rig of 9 controllable lights labelled A to I (so any two photos of a scene differ only in illumination), the model reached a mean PSNR of 28.66 and SSIM of 0.785 across every source-to-target lighting pair, and generalised to out-of-domain iPhone photos of mugs, boxes and plush toys on random surfaces.</p>
+
+      <figure class="project-page__figure">
+        <img src="../images/relighting.gif" alt="Relighting demo: same scene, lighting changed smoothly across directions">
+        <figcaption>Same scene, only the light moves: the model sweeping across target lighting directions.</figcaption>
+      </figure>
+
+      <p>The takeaway is that the choice of architecture matters as much as the choice of conditioning. Diffusion models bring visual priors but fight you on structure and control; transformer image-to-image models sit much closer to the shape of a relighting task once you give them a clean channel to consume the light parameters. Sometimes the right move is not to squeeze a knob onto the biggest model in the room, it is to pick the model that already fits the problem.</p>
+    </article>
+  </main>
+
+  <script>
+    const menuTrigger = document.querySelector('#mobile-menu-trigger');
+    const menuDropdown = document.querySelector('#apple-menu-dropdown');
+    if (menuTrigger && menuDropdown) {
+      menuTrigger.addEventListener('click', function(event) {
+        event.stopPropagation();
+        menuDropdown.classList.toggle('active');
+      });
+      window.addEventListener('click', function(event) {
+        if (menuDropdown.classList.contains('active')) {
+          menuDropdown.classList.remove('active');
+        }
+      });
+    }
+  </script>
+
+  <script src="../chat-widget.js"></script>
+</body>
+</html>

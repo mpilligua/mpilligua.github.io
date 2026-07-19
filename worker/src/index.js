@@ -54,7 +54,58 @@ KNOWLEDGE_BASE:
 ${JSON.stringify(KB, null, 2)}`;
 }
 
-async function handleAsk(request, env) {
+async function sha256Hex(str) {
+  const data = new TextEncoder().encode(str);
+  const buf = await crypto.subtle.digest("SHA-256", data);
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function logTurn(env, row) {
+  if (!env.DB) return;
+  try {
+    await env.DB
+      .prepare("INSERT INTO conversations (session_id, ts, role, content, ip_hash, user_agent) VALUES (?, ?, ?, ?, ?, ?)")
+      .bind(row.sessionId, row.ts, row.role, row.content, row.ipHash || null, row.userAgent || null)
+      .run();
+  } catch (e) {
+    console.error("D1 log failed:", e);
+  }
+}
+
+async function notifyTelegramNewChat(env, payload) {
+  const token = env.TELEGRAM_BOT_TOKEN;
+  const chatId = env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) return;
+  const q = payload.question.length > 900 ? payload.question.slice(0, 900) + "…" : payload.question;
+  const uaShort = (payload.userAgent || "").slice(0, 120);
+  const text = `💬 New chat on the site\n\nSession: ${payload.sessionId.slice(0, 8)}\nFirst question: ${q}` +
+    (uaShort ? `\n\nUA: ${uaShort}` : "");
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text, disable_web_page_preview: true }),
+    });
+  } catch (e) {
+    console.error("telegram notify failed:", e);
+  }
+}
+
+async function isNewSession(env, sessionId) {
+  if (!env.DB) return false;
+  try {
+    const row = await env.DB
+      .prepare("SELECT 1 as x FROM conversations WHERE session_id = ? LIMIT 1")
+      .bind(sessionId)
+      .first();
+    return !row;
+  } catch (e) {
+    console.error("D1 session check failed:", e);
+    return false;
+  }
+}
+
+async function handleAsk(request, env, ctx) {
   let body;
   try {
     body = await request.json();
@@ -69,6 +120,26 @@ async function handleAsk(request, env) {
     return new Response(JSON.stringify({ error: "question_too_long" }), { status: 400 });
   }
   const history = Array.isArray(body?.history) ? body.history.slice(-6) : [];
+  const sessionId = typeof body?.sessionId === "string" && body.sessionId.length <= 64
+    ? body.sessionId
+    : crypto.randomUUID();
+  const userAgent = (request.headers.get("User-Agent") || "").slice(0, 400);
+  const ip = request.headers.get("CF-Connecting-IP") || "";
+  const ipHash = ip ? await sha256Hex((env.IP_SALT || "") + ip) : "";
+  const ts = Math.floor(Date.now() / 1000);
+  const logMeta = { sessionId, ipHash, userAgent };
+
+  // Fire-and-forget: check if this is a new chat session and notify Telegram
+  // BEFORE logging, so the check sees the pre-insert state, then log the user turn.
+  if (ctx?.waitUntil) {
+    ctx.waitUntil((async () => {
+      const isNew = await isNewSession(env, sessionId);
+      if (isNew) {
+        await notifyTelegramNewChat(env, { sessionId, question, userAgent });
+      }
+      await logTurn(env, { ...logMeta, ts, role: "user", content: question });
+    })());
+  }
 
   const apiKey = env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -116,7 +187,8 @@ async function handleAsk(request, env) {
   }
 
   // Transform OpenRouter's OpenAI-style SSE into plain-text SSE chunks
-  // so the client just concatenates data: lines.
+  // so the client just concatenates data: lines. Also accumulate the full
+  // assistant answer so we can log it after streaming completes.
   const encoder = new TextEncoder();
   const decoder = new TextDecoder();
 
@@ -124,6 +196,7 @@ async function handleAsk(request, env) {
     async start(controller) {
       const reader = upstream.body.getReader();
       let buf = "";
+      let assistantAnswer = "";
       try {
         while (true) {
           const { done, value } = await reader.read();
@@ -141,6 +214,7 @@ async function handleAsk(request, env) {
               const chunk = JSON.parse(jsonStr);
               const text = chunk?.choices?.[0]?.delta?.content;
               if (text) {
+                assistantAnswer += text;
                 const safe = text.replace(/\r/g, "").split("\n").map(l => `data: ${l}`).join("\n");
                 controller.enqueue(encoder.encode(safe + "\n\n"));
               }
@@ -152,6 +226,11 @@ async function handleAsk(request, env) {
         controller.enqueue(encoder.encode(`event: error\ndata: ${String(e).slice(0, 200)}\n\n`));
       } finally {
         controller.close();
+        // Log the assistant answer to D1.
+        if (assistantAnswer && ctx?.waitUntil) {
+          const finalTs = Math.floor(Date.now() / 1000);
+          ctx.waitUntil(logTurn(env, { ...logMeta, ts: finalTs, role: "assistant", content: assistantAnswer }));
+        }
       }
     },
   });
@@ -166,7 +245,7 @@ async function handleAsk(request, env) {
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const origin = request.headers.get("Origin") || "";
     const cors = corsHeaders(origin);
@@ -183,7 +262,7 @@ export default {
     }
 
     if (request.method === "POST" && url.pathname === "/ask") {
-      const response = await handleAsk(request, env);
+      const response = await handleAsk(request, env, ctx);
       const newHeaders = new Headers(response.headers);
       for (const [k, v] of Object.entries(cors)) newHeaders.set(k, v);
       return new Response(response.body, {

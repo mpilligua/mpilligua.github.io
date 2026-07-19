@@ -5,6 +5,24 @@
 (function () {
   const WORKER_URL = "https://ask-maria.mariaepc31.workers.dev/ask";
   const STORAGE_KEY = "ask-maria-history";
+  const SESSION_KEY = "ask-maria-session";
+
+  // Persistent session id so multi-turn conversations from the same visitor
+  // can be grouped in the logs, even across reloads and tabs.
+  function getSessionId() {
+    try {
+      let sid = localStorage.getItem(SESSION_KEY);
+      if (!sid) {
+        sid = (crypto.randomUUID && crypto.randomUUID()) ||
+          (Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+        localStorage.setItem(SESSION_KEY, sid);
+      }
+      return sid;
+    } catch {
+      return "no-storage-" + Date.now().toString(36);
+    }
+  }
+  const sessionId = getSessionId();
 
   // --- state -----------------------------------------------------------
   let isOpen = false;
@@ -140,6 +158,16 @@
     }
     .askmaria-header__sub {
       font-size: 12px; color: #888; margin: 2px 0 0 0;
+    }
+    .askmaria-badge {
+      display: inline-block;
+      background: #fff4e5; color: #b45309;
+      font-size: 10px; font-weight: 600;
+      padding: 1px 6px; border-radius: 999px;
+      vertical-align: middle;
+      margin-left: 4px;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
     }
     .askmaria-header__actions { display: flex; gap: 6px; }
     .askmaria-header__btn {
@@ -291,8 +319,8 @@
   panel.innerHTML = `
     <div class="askmaria-header">
       <div>
-        <p class="askmaria-header__title">Ask about my work</p>
-        <p class="askmaria-header__sub">Ask about Maria's projects, papers, courses. Answers may be wrong.</p>
+        <p class="askmaria-header__title">Ask about my work <span class="askmaria-badge">beta</span></p>
+        <p class="askmaria-header__sub">New feature, still testing. Answers may be wrong.</p>
       </div>
       <div class="askmaria-header__actions">
         <button class="askmaria-header__btn" data-action="clear" title="Clear conversation">Clear</button>
@@ -387,7 +415,7 @@
       const resp = await fetch(WORKER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question, history: priorHistory }),
+        body: JSON.stringify({ question, history: priorHistory, sessionId }),
         signal: controller.signal,
       });
 

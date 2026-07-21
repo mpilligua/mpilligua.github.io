@@ -50,10 +50,10 @@
     <header class="profile-grid" id="about">
       <div class="profile__info">
         <h1 class="profile__name">Maria Pilligua</h1>
-        <p>I'm a Master's student in Data Science at EPFL, on an Excellence Fellowship (ESOP, top 0.004% of incoming MSc students), where I previously did research at the EPFL Computer Vision Lab on transformer architectures for 3D scene reconstruction. I'm currently interning at CARIAD (Volkswagen Group), working on perception for autonomous vehicles by fusing camera and radar information.</p>
-        <p>I graduated in Artificial Intelligence from the Autonomous University of Barcelona with the highest GPA across all engineering degrees (9.41/10). I have 5 papers at CVPR / ECCV (4 as first author), specializing in generative AI and controllability in vision models. I previously worked as a Machine Learning intern at GoodNotes in London, where I shipped a <a href="projects/text-to-svg.html">diffusion-based text-to-SVG feature</a> now used by millions.</p>
+        <p>I am a Master's student in Data Science at EPFL and an AI Research Intern at CARIAD. My research focuses on 3D vision, scene understanding, and controllable generative models. Previously, I conducted research at EPFL CVLab and the Computer Vision Center, resulting in five publications at CVPR and ECCV (four as first author). Currently interested in 3D scene reconstruction, vision foundation models, autonomous driving, and robotics perception.</p>
         <p class="profile__links">
           <a href="mailto:mpilligua@cvc.uab.cat"><i class="fa fa-paper-plane" aria-hidden="true"></i> Email</a>
+          <a href="static/Maria_Pilligua_CV.pdf"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> CV (PDF)</a>
           <a href="https://scholar.google.com/citations?user=qzpgC1cAAAAJ&hl=en"><i class="ai ai-google-scholar" aria-hidden="true"></i> Google Scholar</a>
           <a href="https://github.com/mpilligua"><i class="fa fa-github" aria-hidden="true"></i> Github</a>
           <a href="https://orcid.org/0009-0006-6656-7386"><i class="ai ai-orcid-square" aria-hidden="true"></i> ORCID</a>
@@ -64,6 +64,60 @@
         <img class="profile__photo" alt="profile photo" src="images/me.jpeg">
       </div>
     </header>
+
+    <!-- Highlights -->
+    <p class="highlights" aria-label="Highlights">
+      5 publications at CVPR / ECCV (4 first-author) <span class="highlights__dot">·</span>
+      EPFL Excellence Fellowship (ESOP) <span class="highlights__dot">·</span>
+      highest GPA across all UAB engineering degrees <span class="highlights__dot">·</span>
+      formerly at CVC UAB and EPFL CVLab
+    </p>
+
+    <!-- Looking for Thesis note -->
+    <aside class="thesis-note" id="thesis-search">
+      <p class="thesis-note__lede">Looking for a Master's Thesis Internship, Jan to Jul 2027.</p>
+      <p class="thesis-note__body">I am looking for a research internship to complete my EPFL Master's thesis in computer vision, 3D vision, robotics perception, or generative AI. If your group is a good fit, I would love to chat.</p>
+      <div class="thesis-note__contact">
+        <button type="button" class="thesis-note__cta" data-copy-email="mariaepc31@gmail.com">
+          <span class="thesis-note__cta-text">Contact me</span>
+        </button>
+        <div class="thesis-note__reveal" hidden>
+          <span class="thesis-note__email">mariaepc31@gmail.com</span>
+          <span class="thesis-note__copied">copied</span>
+        </div>
+      </div>
+    </aside>
+    <script>
+      (function () {
+        document.querySelectorAll('[data-copy-email]').forEach(function (btn) {
+          const container = btn.closest('.thesis-note__contact');
+          const reveal = container ? container.querySelector('.thesis-note__reveal') : null;
+          const copied = container ? container.querySelector('.thesis-note__copied') : null;
+          let copiedTimer = null;
+          btn.addEventListener('click', async function () {
+            const email = btn.getAttribute('data-copy-email');
+            try {
+              await navigator.clipboard.writeText(email);
+            } catch (e) {
+              const ta = document.createElement('textarea');
+              ta.value = email;
+              document.body.appendChild(ta);
+              ta.select();
+              try { document.execCommand('copy'); } catch (_) {}
+              document.body.removeChild(ta);
+            }
+            if (reveal) reveal.hidden = false;
+            if (copied) {
+              copied.classList.add('is-visible');
+              if (copiedTimer) clearTimeout(copiedTimer);
+              copiedTimer = setTimeout(function () {
+                copied.classList.remove('is-visible');
+              }, 2200);
+            }
+          });
+        });
+      })();
+    </script>
 
     <!-- Featured Projects Section -->
     <section class="content-section" id="projects">
@@ -211,7 +265,7 @@
         <div class="experience__logo"><img src='images/EPFL-logo.png' alt="UAB Logo"></div>
         <div class="experience__info">
           <p><strong>Master's in Data Science</strong></p>
-          <p>EPFL, Laussane, Switzerland</p>
+          <p>EPFL, Lausanne, Switzerland</p>
           <p class="experience__date">September 2025 - August 2027</p>
           <p style="margin-top: 4px;">Current GPA: <strong>5.42/6</strong></p>
           <p style="margin-top: 4px;"><em>Projects:</em> <a href="https://mpilligua.github.io/C-T2M.github.io/index.html">Text-to-Motion</a> · <a href="projects/vq-cot.html">VQ-CoT</a> · <a href="projects/zo-optim.html">Zeroth-Order Optimizers</a></p>

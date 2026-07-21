@@ -124,9 +124,9 @@ main.page-container {
 /* --- PROFILE SECTION --- */
 .profile-grid {
   display: grid;
-  grid-template-columns: 70% 30%;
-  gap: 30px;
-  align-items: center;
+  grid-template-columns: 1fr 180px;
+  gap: 40px;
+  align-items: start;
 }
 .profile__info {
   text-align: left;
@@ -143,10 +143,99 @@ main.page-container {
   border-radius: 12px;
 }
 .profile__links {
-  margin-top: 25px;
+  margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 16px 22px;
+  font-size: 0.95em;
+}
+
+/* --- HIGHLIGHTS (inline text strip) --- */
+.highlights {
+  margin: 22px 0 0 0;
+  color: #555;
+  font-size: 0.95em;
+  line-height: 1.7;
+}
+.highlights__dot {
+  color: #bbb;
+  margin: 0 6px;
+}
+
+/* --- THESIS NOTE --- */
+.thesis-note {
+  position: relative;
+  margin: 40px 0 8px 0;
+  padding: 26px 30px 26px 34px;
+  background: linear-gradient(135deg, #fdf9f0 0%, #fbf3e2 100%);
+  border: 1px solid #f0e3c4;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+.thesis-note::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 5px;
+  background: #b45309;
+}
+.thesis-note__lede {
+  font-family: 'Optima', sans-serif;
+  font-size: 1.6em;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+}
+.thesis-note__body {
+  color: #4a3a1a;
+  margin: 0 0 16px 0;
+  line-height: 1.65;
+  font-size: 1.02em;
+  max-width: none;
+}
+.thesis-note__contact {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.thesis-note__cta {
+  background: #1a1a1a;
+  border: none;
+  padding: 10px 22px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 0.98em;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.thesis-note__cta:hover { background: #333; transform: translateY(-1px); }
+.thesis-note__reveal[hidden] { display: none; }
+.thesis-note__reveal {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  animation: revealIn 0.25s ease;
+}
+.thesis-note__email {
+  font-family: 'SFMono-Regular', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  color: #111;
+  user-select: all;
+}
+.thesis-note__copied {
+  color: #888;
+  font-size: 0.85em;
+  font-style: italic;
+}
+@keyframes revealIn {
+  from { opacity: 0; transform: translateY(-2px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* --- PROJECT STYLES (SHARED) --- */
